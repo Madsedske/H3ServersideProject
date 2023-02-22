@@ -1,0 +1,183 @@
+﻿body {
+}
+
+.gradient-custom {
+    /* fallback for old browsers */
+    background: #6a11cb;
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1))
+}
+
+* {
+    box-sizing: border-box;
+    color: white;
+}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+}
+
+    input[type=text]:focus, input[type=password]:focus {
+        background-color: #ddd;
+        outline: none;
+    }
+
+hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+}
+
+/* Set a style for all buttons */
+button {
+    background-color: #04AA6D;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+}
+
+    button:hover {
+        opacity: 1;
+    }
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+    padding: 14px 20px;
+    background-color: #f44336;
+}
+
+/* Float cancel and signup buttons and add an equal width */
+.cancelbtn, .signupbtn {
+    float: left;
+    width: 50%;
+}
+
+/* Add padding to container elements */
+.container {
+    padding: 16px;
+}
+
+/* Clear floats */
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* Change styles for cancel button and signup button on extra small screens */
+@media screen and (max-width: 300px) {
+    .cancelbtn, .signupbtn {
+        width: 100%;
+    }
+}
+
+
+
+
+
+
+.card {
+    border: none
+}
+
+.form-control {
+    border-bottom: 2px solid #eee !important;
+    border: none;
+    font-weight: 600
+}
+
+    .form-control:focus {
+        color: #495057;
+        background-color: #fff;
+        border-color: #8bbafe;
+        outline: 0;
+        box-shadow: none;
+        border-radius: 0px;
+        border-bottom: 2px solid blue !important
+    }
+
+.inputbox {
+    position: relative;
+    margin-bottom: 20px;
+    width: 100%
+}
+
+    .inputbox span {
+        position: absolute;
+        top: 7px;
+        left: 11px;
+        transition: 0.5s
+    }
+
+    .inputbox i {
+        position: absolute;
+        top: 13px;
+        right: 8px;
+        transition: 0.5s;
+        color: #3F51B5
+    }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0
+}
+
+.inputbox input:focus ~ span {
+    transform: translateX(-0px) translateY(-15px);
+    font-size: 12px
+}
+
+.inputbox input:valid ~ span {
+    transform: translateX(-0px) translateY(-15px);
+    font-size: 12px
+}
+
+.card-blue {
+    background-color: #492bc4
+}
+
+.hightlight {
+    background-color: #5737d9;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 15px;
+    font-size: 14px
+}
+
+.yellow {
+    color: #fdcc49
+}
+
+.decoration {
+    text-decoration: none;
+    font-size: 14px
+}
+
+.btn-success {
+    color: #fff;
+    background-color: #492bc4;
+    border-color: #492bc4
+}
+
+    .btn-success:hover {
+        color: #fff;
+        background-color: #492bc4;
+        border-color: #492bc4
+    }
+
+.decoration:hover {
+    text-decoration: none;
+    color: #fdcc49
+}

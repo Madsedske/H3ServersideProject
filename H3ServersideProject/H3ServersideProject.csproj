@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\Pictures\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\lib\Pictures\1.png" />
+    <None Include="wwwroot\lib\Pictures\BB.png" />
+    <None Include="wwwroot\lib\Pictures\BestBio.png" />
+    <None Include="wwwroot\lib\Pictures\Inside.png" />
+    <None Include="wwwroot\lib\Pictures\Pris.png" />
+    <None Include="wwwroot\lib\Pictures\scarymovie.png" />
+    <None Include="wwwroot\lib\Pictures\Slik.png" />
+    <None Include="wwwroot\lib\Pictures\spiderman.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+  </ItemGroup>
+
+</Project>
