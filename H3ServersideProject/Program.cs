@@ -1,10 +1,24 @@
+using H3ServersideProject;
+using H3ServersideProject.Data;
+using H3ServersideProject.Data.Helpers;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Host.ConfigureServices(services =>
+{
+    services.AddSingleton<DatabaseContext>();
+    services.AddScoped<IUserRepo, UserRepo>();
+});
+
 builder.Services.AddControllersWithViews();
+builder.Services.AddMvc();
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession();
 
 var app = builder.Build();
-app.UseSession();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -14,6 +28,8 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseSession();
+app.UseAuthentication();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -21,8 +37,10 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+//app.MapControllers();
+
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}");
 
 app.Run();

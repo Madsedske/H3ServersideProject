@@ -1,0 +1,73 @@
+﻿@model H3ServersideProject.Models.User
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+@*@using (Html.BeginForm("PostUser", "Register", FormMethod.Post))
+{*@
+<section>
+    <div class="container py-5 h-100">
+        <!--Color til login - #d86502/#02D8D0 -->
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card text-white" style="border-radius: 1rem; background-color: slategray !important;">
+                    <div class="card-body p-5 text-center">
+                        <div class="mb-5 mt-md-4 pb-5">
+                            <h2 class="fw-bold mb-2 text-uppercase">Sign Up</h2>
+                            <p class="text-white-50 mb-5">Please fill in this form to create an account.</p>
+                            <hr>
+                            <form asp-action="PostUser">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="form-group">
+                                    <label class="control-label">Name</label>
+                                    <input name="Name" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" value="Create" class="btn btn-primary" />
+                                </div>
+                            </form>
+
+                            <!-- NAME -->
+                            <div class="form-outline form-white mb-4">
+                                <label class="form-label"><b>Name</b></label>
+                                @Html.EditorFor(user => user.Name, new { htmlAttributes = new { @class="form-control form-control-lg", placeholder="Enter Name", type="text", name="name"}})
+                            </div>
+                            <!-- ADDRESS -->
+                            <div class="form-outline form-white mb-4">
+                                <label class="form-label"><b>Address</b></label>
+                                @Html.EditorFor(user => user.Address, new { htmlAttributes = new { type="text", placeholder="Enter Address", name="address",  @class="form-control form-control-lg"}})
+                            </div>
+                            <!-- PHONE -->
+                            <div class="form-outline form-white mb-4">
+                                <label class="form-label"><b>Phonenumber</b></label>
+                                @Html.EditorFor(user => user.PhoneNumber, new { htmlAttributes = new { type="text", placeholder="Enter Number", name="number", @class="form-control form-control-lg"}})
+                            </div>
+                            <!-- EMAIL -->
+                            <div class="form-outline form-white mb-4">
+                                <label class="form-label"><b>Email</b></label>
+                                @Html.EditorFor(user => user.Email, new { htmlAttributes = new { type="email", placeholder="Enter Email", name="eml",  @class="form-control form-control-lg"}})
+                            </div>
+                            <!-- PASSWORD -->
+                            <div class="form-outline form-white mb-5">
+                                <label class="form-label"><b>Password </b></label>
+                                @Html.EditorFor(user => user.Password, new { htmlAttributes = new { type="password", placeholder="Enter Password", name="psw", @class="form-control form-control-lg", /*pattern="(?=.*d)(?=.*[a-z])(?=.*[A-Z]).{8,}",*/ title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"}})
+                            </div>
+                            <p class="mb-5">By creating an account you agree to our <a href="#" style="color: dodgerblue">Terms & Privacy</a>.</p>
+
+                            <div class="clearfix mb-5">
+                                <Button type="submit" value="" @*OnClick="location.href='@Url.Action("PostUser", "Register")'"*@ class=" btn btn-outline-light btn-lg px-5">Create</Button>
+                                <br />
+                                <br />
+                                <a class="nav-link text-white" asp-area="" asp-controller="Login" asp-action="Index">Tilbage til login</a>
+
+                                <!-- <button asp-area="" asp-controller="Login" asp-action="Index" class=" btn btn-outline-light btn-lg px-5">Tilbage til login</button>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@*}*@
