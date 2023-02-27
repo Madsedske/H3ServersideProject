@@ -2,7 +2,6 @@ using H3ServersideProject;
 using H3ServersideProject.Data;
 using H3ServersideProject.Data.Helpers;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -11,6 +10,7 @@ builder.Host.ConfigureServices(services =>
 {
     services.AddSingleton<DatabaseContext>();
     services.AddScoped<IUserRepo, UserRepo>();
+    services.AddScoped<ILogin, LoginRepo>();
 });
 
 builder.Services.AddControllersWithViews();

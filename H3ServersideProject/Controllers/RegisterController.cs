@@ -16,14 +16,16 @@ using System.Xml;
 
 namespace H3ServersideProject.Controllers
 {
-    [Route("Register")]
+    [Route("/Register")]
     [ApiController]
     public class RegisterController : Controller
     {
+        private readonly ILogger _logger;
         private readonly IUserRepo _userRepo;
 
-        public RegisterController(IUserRepo userRepo)
+        public RegisterController(IUserRepo userRepo, ILogger<RegisterController> logger)
         {
+            _logger = logger;
             _userRepo = userRepo;
         }
 
@@ -32,20 +34,26 @@ namespace H3ServersideProject.Controllers
         {
             return View();
         }
-        
+
         // POST: api/Users
         [Consumes("application/json")]
         [HttpPost("[action]")]
-        public ActionResult<User> Post([FromBody]User user)
+        public ActionResult<User> Post([FromBody] User user)
         {
-            if (ModelState.IsValid)
-            {              
-                _userRepo.Insert(user);
-                //_userRepo.save();
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _userRepo.Insert(user);
+                    _logger.LogInformation($"User registered.");
+                    return RedirectToPage("Login");
+                }
                 return RedirectToPage("Login");
             }
-
-            return RedirectToPage("Login");
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Failed on creating user: {ex}");
+            }
         }
 
         //[HttpPost("[action]")]

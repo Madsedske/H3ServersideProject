@@ -1,19 +1,21 @@
 ﻿using H3ServersideProject.Data.Helpers;
 using H3ServersideProject.Helpers;
 using H3ServersideProject.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace H3ServersideProject.Controllers
 {
-    [Route("Login")]
+    [Route("/Login")]
     [ApiController]
     public class LoginController : Controller
     {
-        private readonly IUserRepo _userRepo;
+        private readonly ILogin _login;
 
-        public LoginController(IUserRepo userRepo)
+        public LoginController(ILogin login)
         {
-            _userRepo = userRepo;
+            _login = login;
         }
 
         [HttpGet]
@@ -34,18 +36,12 @@ namespace H3ServersideProject.Controllers
         //}
 
         [Consumes("application/json")]
-        [HttpPost]
-        public ActionResult<User> Get([FromBody] User user)
-        {           
-            if (ModelState.IsValid)
-            {                
-                _userRepo.GetUser(user.Email);
-
-                //_userRepo.save();
-                return RedirectToPage("Login");
-            }
-
-            return RedirectToPage("Login");
+        [HttpPost("[action]")]
+        public ActionResult<Login> Get([FromBody] Login login)
+        {
+            Console.WriteLine(login.Email);
+            _login.GetuserLogin(login);
+            return View();  
         }
     }
 }

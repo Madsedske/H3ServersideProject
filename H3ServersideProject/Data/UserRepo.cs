@@ -14,6 +14,7 @@ namespace H3ServersideProject.Data
 
         public UserRepo(DatabaseContext context)
         {
+
             _context = context;
         }
 
@@ -24,28 +25,31 @@ namespace H3ServersideProject.Data
 
         public User GetUser(string email)
         {
-            using (IDbConnection con = _context.Connection())
-            {
-                con.Open();
-                using (SqlCommand cmd = new SqlCommand("Get_User", (SqlConnection)con))
-                {
-                    // A stored procedure that finds the column shown as a string with an @, the type
-                    // and sets it to the input value of the user - Customers
-                    con.Open();
-                    cmd.Parameters.AddWithValue("@email", SqlDbType.VarChar).Value = email;
-                    cmd.ExecuteNonQuery();
-                    //cmd.Parameters.AddWithValue("@password", SqlDbType.Text).Value = password;
+            Console.WriteLine(email);
+            throw new NotImplementedException();
+            //using (IDbConnection con = _context.Connection())
+            //{
+            //    con.Open();
+            //    using (SqlCommand cmd = new SqlCommand("Get_User", (SqlConnection)con))
+            //    {
+            //        // A stored procedure that finds the column shown as a string with an @, the type
+            //        // and sets it to the input value of the user - Customers
+            //        con.Open();
+            //        cmd.Parameters.AddWithValue("@email", SqlDbType.VarChar).Value = email;
+            //        cmd.ExecuteNonQuery();
+            //        //cmd.Parameters.AddWithValue("@password", SqlDbType.Text).Value = password;
                     
-                    SqlDataAdapter da = new SqlDataAdapter(cmd);
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
-                    if (dt.Rows.Count > 0)
-                    {
-                        return _context.;
-                    }
-                    con.Close();
-                }
-            }
+            //        SqlDataAdapter da = new SqlDataAdapter(cmd);
+            //        DataTable dt = new DataTable();
+            //        da.Fill(dt);
+            //        if (dt.Rows.Count > 0)
+            //        {
+
+                        
+            //        }
+            //        con.Close();
+            //    }
+            //}
         }
 
         public IEnumerable<User> GetUsers()
