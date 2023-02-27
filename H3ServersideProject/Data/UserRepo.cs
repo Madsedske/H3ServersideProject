@@ -25,31 +25,28 @@ namespace H3ServersideProject.Data
 
         public User GetUser(string email)
         {
-            Console.WriteLine(email);
-            throw new NotImplementedException();
-            //using (IDbConnection con = _context.Connection())
-            //{
-            //    con.Open();
-            //    using (SqlCommand cmd = new SqlCommand("Get_User", (SqlConnection)con))
-            //    {
-            //        // A stored procedure that finds the column shown as a string with an @, the type
-            //        // and sets it to the input value of the user - Customers
-            //        con.Open();
-            //        cmd.Parameters.AddWithValue("@email", SqlDbType.VarChar).Value = email;
-            //        cmd.ExecuteNonQuery();
-            //        //cmd.Parameters.AddWithValue("@password", SqlDbType.Text).Value = password;
-                    
-            //        SqlDataAdapter da = new SqlDataAdapter(cmd);
-            //        DataTable dt = new DataTable();
-            //        da.Fill(dt);
-            //        if (dt.Rows.Count > 0)
-            //        {
+            using (IDbConnection con = _context.Connection())
+            {
+                using (SqlCommand cmd = new SqlCommand("Get_User", (SqlConnection)con))
+                {
+                    // A stored procedure that finds the column shown as a string with an @, the type
+                    // and sets it to the input value of the user - Customers
+                    con.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@email", SqlDbType.VarChar).Value = email;
 
-                        
-            //        }
-            //        con.Close();
-            //    }
-            //}
+                    User user = new User();
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    DataTable dt = new DataTable();
+                    if (dr.Read())
+                    {
+                        user.Password = dr.GetValue(0).ToString();
+                    }
+                    con.Close();
+                    return user;
+
+                }
+            }
         }
 
         public IEnumerable<User> GetUsers()

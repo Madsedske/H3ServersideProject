@@ -46,7 +46,7 @@ namespace H3ServersideProject.Controllers
                 {
                     _userRepo.Insert(user);
                     _logger.LogInformation($"User registered.");
-                    return RedirectToPage("Login");
+                    return StatusCode(200, "GODKENDT");
                 }
                 return RedirectToPage("Login");
             }

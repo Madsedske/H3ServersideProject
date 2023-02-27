@@ -34,7 +34,7 @@
                                 <p class="mb-5">By creating an account you agree to our <a href="#" style="color: dodgerblue">Terms & Privacy</a>.</p>
 
                                 <div class="clearfix mb-5">
-                                    <button class=" btn btn-outline-light btn-lg px-5"  asp-area="" asp-controller="Login" asp-action="Index" type="submit" id="register-button">Register</button>
+                                    <button class=" btn btn-outline-light btn-lg px-5" type="submit" id="register-button">Register</button>
                                     <br />
                                     <br />
                                     <a class="nav-link text-white" asp-area="" asp-controller="Login" asp-action="Index">Tilbage til login</a>
@@ -72,6 +72,7 @@
                 data: JSON.stringify(formData),
                 success: function (result) {
                     console.log(result);
+                    window.location.href = "/Login";
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     console.log("Error: " + errorThrown);

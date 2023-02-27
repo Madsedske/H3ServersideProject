@@ -1,4 +1,4 @@
-﻿@model H3ServersideProject.Models.Login
+﻿@model H3ServersideProject.Models.User
 @{
     ViewData["Title"] = "Login";
 }
@@ -30,7 +30,7 @@
                                 <!-- PASSWORD-->
 
                                 <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p>
-                                <button class="btn btn-outline-light btn-lg px-5" asp-area="" asp-controller="Login" asp-action="Get" type="submit" id="login-button">Login</button>
+                                <button class="btn btn-outline-light btn-lg px-5" type="submit" id="login-button">Login</button>
                             </form>
 
                         </div>
@@ -56,12 +56,13 @@
             };
 
             $.ajax({
-                url: "/Login/Get",
+                url: "/Login/Post",
                 type: "POST",
                 contentType: "application/json",
                 data: JSON.stringify(formData),
                 success: function (result) {
                     console.log(result);
+                    window.location.href = "/Home";
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     console.log("Error: " + errorThrown);

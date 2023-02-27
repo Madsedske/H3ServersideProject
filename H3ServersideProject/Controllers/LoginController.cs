@@ -1,4 +1,5 @@
-﻿using H3ServersideProject.Data.Helpers;
+﻿using H3ServersideProject.Data;
+using H3ServersideProject.Data.Helpers;
 using H3ServersideProject.Helpers;
 using H3ServersideProject.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -11,11 +12,13 @@ namespace H3ServersideProject.Controllers
     [ApiController]
     public class LoginController : Controller
     {
-        private readonly ILogin _login;
+        private readonly ILogger _logger;
+        private readonly IUserRepo _userRepo;
 
-        public LoginController(ILogin login)
+        public LoginController(IUserRepo userRepo, ILogger<RegisterController> logger)
         {
-            _login = login;
+            _logger = logger;
+            _userRepo = userRepo;
         }
 
         [HttpGet]
@@ -36,12 +39,36 @@ namespace H3ServersideProject.Controllers
         //}
 
         [Consumes("application/json")]
-        [HttpPost("[action]")]
-        public ActionResult<Login> Get([FromBody] Login login)
+        [HttpPost("Post")]
+        public ActionResult<User> Post([FromBody] UserDTO userDTO)
         {
-            Console.WriteLine(login.Email);
-            _login.GetuserLogin(login);
-            return View();  
+            if (ModelState.IsValid)
+            {
+                User tempUser = _userRepo.GetUser(userDTO.Email);
+                //tempUser.Password = "Skipperskræk1";
+                if (tempUser.Password is not null)
+                {
+                    if (tempUser.Password == userDTO.Password)
+                    {
+                        // Set the user as logged in
+                        _logger.LogInformation($"User logged in");
+                        return StatusCode(200);
+                    }
+                    else
+                    {
+                        // Password incorrect
+                        _logger.LogError($"Incorrect password");
+                    }
+                }
+                else
+                {
+                    // Email doesn't exist
+                    _logger.LogError($"Email doesn't exist");
+                }
+                //_userRepo.save();
+            }
+
+            return StatusCode(200);
         }
     }
 }

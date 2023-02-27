@@ -10,7 +10,6 @@ builder.Host.ConfigureServices(services =>
 {
     services.AddSingleton<DatabaseContext>();
     services.AddScoped<IUserRepo, UserRepo>();
-    services.AddScoped<ILogin, LoginRepo>();
 });
 
 builder.Services.AddControllersWithViews();
