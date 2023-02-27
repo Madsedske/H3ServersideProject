@@ -17,6 +17,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddMvc();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
@@ -28,6 +29,8 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseSwagger();
+app.UseSwaggerUI();
 app.UseSession();
 app.UseAuthentication();
 app.UseHttpsRedirection();

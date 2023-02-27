@@ -6,7 +6,7 @@ namespace H3ServersideProject.Data.Helpers
     {
         IEnumerable<User> GetUsers();
 
-        User GetUser(string username);
+        User GetUser(string email);
 
         void Insert(User user);
 

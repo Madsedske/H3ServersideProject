@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace H3ServersideProject.Helpers
 {
@@ -12,6 +13,22 @@ namespace H3ServersideProject.Helpers
         { 
             var value = session.GetString(key); 
             return value == null ? default(T) : JsonConvert.DeserializeObject<T>(value); 
-        } 
+        }
+
+
+
+        //[HttpGet("set/{data}")]
+        //public IActionResult setsession(string data)
+        //{
+        //    HttpContext.Session.SetString("keyname", data);
+        //    return Ok("session data set");
+        //}
+
+        //[HttpGet("get")]
+        //public IActionResult getsessiondata()
+        //{
+        //    var sessionData = HttpContext.Session.GetString("keyname");
+        //    return Ok(sessionData);
+        //}
     }
 }
