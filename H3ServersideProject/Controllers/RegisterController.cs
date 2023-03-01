@@ -32,6 +32,7 @@ namespace H3ServersideProject.Controllers
         [HttpGet]
         public IActionResult Register()
         {
+            var cookie = Request.Cookies["LoginCookie"];
             return View();
         }
 
@@ -46,7 +47,7 @@ namespace H3ServersideProject.Controllers
                 {
                     _userRepo.Insert(user);
                     _logger.LogInformation($"User registered.");
-                    return StatusCode(200, "GODKENDT");
+                    return StatusCode(200);
                 }
                 return RedirectToPage("Login");
             }

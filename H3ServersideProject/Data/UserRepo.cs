@@ -48,6 +48,38 @@ namespace H3ServersideProject.Data
                 }
             }
         }
+        public User GetUserData(string email)
+        {
+            using (IDbConnection con = _context.Connection())
+            {
+                using (SqlCommand cmd = new SqlCommand("Get_User_Data", (SqlConnection)con))
+                {
+                    // A stored procedure that finds the column shown as a string with an @, the type
+                    // and sets it to the input value of the user - Customers
+                    con.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Email", SqlDbType.VarChar).Value = email;
+
+
+                    User user = new User();
+                    SqlDataReader reader1 = cmd.ExecuteReader();
+                    if (reader1.Read())
+                    {
+                        user.Name = reader1.GetValue(0).ToString();
+                        user.Address = reader1.GetValue(1).ToString();
+                        user.Email = reader1.GetValue(2).ToString();
+                        user.PhoneNumber = reader1.GetValue(3).ToString();
+                    }
+                    else
+                    {
+
+                    }
+                    con.Close();
+                    Console.WriteLine(user.Password);
+                    return user;
+                }
+            }
+        }
 
         public IEnumerable<User> GetUsers()
         {

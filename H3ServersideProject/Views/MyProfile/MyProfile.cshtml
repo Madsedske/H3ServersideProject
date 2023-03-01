@@ -1,0 +1,45 @@
+﻿@model H3ServersideProject.Models.User
+@{
+    ViewData["Title"] = "MyProfile";
+}
+
+<section>
+    <div class="container py-5 h-100">
+        <!--Color til login - #d86502/#02D8D0 -->
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card text-white" style="border-radius: 1rem; background-color: slategray !important;">
+                    <div class="card-body p-5 text-center">
+                        <div class="mb-5 mt-md-4 pb-5">
+                            <h2 class="fw-bold mb-2 text-uppercase">Dine oplysninger</h2>
+                            <hr>
+
+                            <h5 class="card-title">@Html.DisplayNameFor(model => model.Name)</h5>
+                            <p class="card-text">
+                                <b></b> <br>@Html.DisplayFor(model => model.Name)
+                            </p>
+
+                            <h5 class="card-title">@Html.DisplayNameFor(model => model.Address)</h5>
+                            <p class="card-text">
+                                <b></b> <br>@Html.DisplayFor(model => model.Address)
+                            </p>
+
+                            <h5 class="card-title">@Html.DisplayNameFor(model => model.Email)</h5>
+                            <p class="card-text">
+                                <b></b> <br>@Html.DisplayFor(model => model.Email)
+                            </p>
+
+                            <h5 class="card-title">@Html.DisplayNameFor(model => model.PhoneNumber)</h5>
+                            <p class="card-text">
+                                <b></b> <br>@Html.DisplayFor(model => model.PhoneNumber)
+                            </p>
+                            <br />
+
+                            <a class="nav-link text-white" asp-area="" asp-controller="MyProfile" asp-action="Logout">Log ud</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

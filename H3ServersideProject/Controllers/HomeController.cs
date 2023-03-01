@@ -19,13 +19,8 @@ namespace H3ServersideProject.Controllers
         }
 
         public IActionResult Priser()
-        {
+        {            
             return View();
-        }
-
-        public IActionResult Program()
-        {
-            return View();
-        }
+        }       
     }
 }

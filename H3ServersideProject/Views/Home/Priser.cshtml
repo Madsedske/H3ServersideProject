@@ -1,34 +1,45 @@
 ﻿@{
     ViewData["Title"] = "Priser";
 }
-<div class="container">
-    <center>
-        <img src="~/lib/Pictures/Pris.png" />
-    </center>
+<div class="container-fluid mt-5">
+    <div>
+        <center>
+            <img src="~/lib/Pictures/Pris.png" />
+        </center>
+    </div>
+    <div class="row">
+        <div class="col-4 border-danger border-4">
+            <h4 style="color:white">Billet Priser</h4>
+            <p style="color:white">
+                Normal billet 100 kr. (10kr rabat på de to første og sidste rækker)
+                <br />Eksklusivt sæde 120 kr.
+                <br />Børn eller pensionister 90 kr.
+                <br />
+                <br />Forestillinger over 2 timer koster 20 kr.yderligere per påbegyndt halve time.
+            </p>
+        </div>
 
-    <h4>Billet Priser</h4>
-    <p>
-        Normal billet 100 kr. (10kr rabat på de to første og sidste rækker)
-        <br />Eksklusivt sæde 120 kr.
-        <br />Børn eller pensionister 90 kr.
-        <br />
-        <br />Forestillinger over 2 timer koster 20 kr.yderligere per påbegyndt halve time.
-    </p>
-    <h4>Sodavand</h4>
-    <p>
-        Lille sodavand 20 kr.
-        <br />Mellem sodavand 30 kr.
-        <br />Stor sodavand 45 kr.
-    </p>
-    <h4>Slik</h4>
-    <p>
-        100 g bland-selv slik 25 kr.
-        <br />
-    </p>
-    <h4>Popcorn</h4>
-    <p>
-        Lille popcorn 15 kr.
-        <br />Mellem popcorn 20 kr.
-        <br />Stor popcorn 30 kr.
-    </p>
+        <div class="col-4 border-danfer border-4">
+            <h4 style="color:white">Sodavand</h4>
+            <p style="color:white">
+                Lille sodavand 20 kr.
+                <br />Mellem sodavand 30 kr.
+                <br />Stor sodavand 45 kr.
+            </p>
+        </div>
+
+        <div class="col-4 border-danger border-4">
+            <h4 style="color:white">Slik</h4>
+            <p style="color:white">
+                100 g bland-selv slik 25 kr.
+                <br />
+            </p>
+            <h4 style="color:white">Popcorn</h4>
+            <p style="color:white">
+                Lille popcorn 15 kr.
+                <br />Mellem popcorn 20 kr.
+                <br />Stor popcorn 30 kr.
+            </p>
+        </div>
+    </div>
 </div>

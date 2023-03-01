@@ -55,6 +55,7 @@
                 password: $("#password").val()
             };
 
+
             $.ajax({
                 url: "/Login/Post",
                 type: "POST",
@@ -62,7 +63,7 @@
                 data: JSON.stringify(formData),
                 success: function (result) {
                     console.log(result);
-                    window.location.href = "/Home";
+                    window.location.href = "/Myprofile";
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     console.log("Error: " + errorThrown);

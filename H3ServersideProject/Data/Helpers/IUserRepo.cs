@@ -8,6 +8,8 @@ namespace H3ServersideProject.Data.Helpers
 
         User GetUser(string email);
 
+        User GetUserData(string email);
+
         void Insert(User user);
 
         void Update(User user);
