@@ -6,7 +6,7 @@ namespace H3ServersideProject.Repositories.Interfaces
     {
         List<int> GetReservation(int movieID, DateTime date);
 
-        Showing InsertReservation();
+        void InsertReservation(int movieID, DateTime date, string email, int seatID);
 
     }
 }

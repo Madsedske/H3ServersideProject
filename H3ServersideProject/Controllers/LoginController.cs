@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 
 namespace H3ServersideProject.Controllers
 {
@@ -38,7 +39,7 @@ namespace H3ServersideProject.Controllers
 
         [Consumes("application/json")]
         [HttpPost("Post")]
-        public ActionResult<User> Post([FromBody] UserDTO userDTO)
+        public ActionResult<UserPassword> Post([FromBody] UserDTO userDTO)
         {
             var pswService = new PasswordService();
             var tokenService = new TokenService();
@@ -46,21 +47,21 @@ namespace H3ServersideProject.Controllers
 
             if (ModelState.IsValid)
             {
-                User tempUser = _userRepo.GetUser(userDTO.Email);
+                UserPassword tempUser = _userRepo.GetUser(userDTO.Email);
 
-                if (tempUser.Password is not null)
+                if (tempUser.PasswordHash is not null && tempUser.PasswordSalt is not null)
                 {
                     if (pswService.VerifyPassword(userDTO.Password, tempUser.PasswordHash, tempUser.PasswordSalt))
                     {
                         cookieOptions.Expires = DateTime.Now.AddMinutes(2);
                         cookieOptions.Path = "/";
                         Response.Cookies.Append("LoginCookie", userDTO.Email, cookieOptions);
-
-                        string token = tokenService.CreateToken(userDTO.Email);
-
+                        tokenService.CreateToken(userDTO.Email);
+                        
                         // Set the user as logged in
                         _logger.LogInformation($"User logged in");
-                        return StatusCode(200, token);
+
+                        return StatusCode(200);
                     }
                     else
                     {

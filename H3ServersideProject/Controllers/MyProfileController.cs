@@ -1,9 +1,17 @@
-﻿using H3ServersideProject.Models;
+﻿using H3ServersideProject.Data.Helpers;
+using H3ServersideProject.Models;
 using H3ServersideProject.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Identity.Web;
+using Newtonsoft.Json.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Security.Policy;
 
 namespace H3ServersideProject.Controllers
 {
@@ -21,7 +29,7 @@ namespace H3ServersideProject.Controllers
         }
 
         [Produces("application/json")]
-        [HttpGet, Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
+        [HttpGet]
         public IActionResult MyProfile()
         {
             var checkCookie = Request.Cookies["LoginCookie"];
@@ -51,6 +59,18 @@ namespace H3ServersideProject.Controllers
             }
             return RedirectToAction("Index", "Login");
 
+        }
+
+        [HttpGet("action")]
+        public IActionResult Delete()
+        {
+            var checkCookie = Request.Cookies["LoginCookie"];
+
+            if (checkCookie != null)
+            {
+                _userRepo.RemoveUser(checkCookie);
+            }
+            return RedirectToAction("Index", "Login");
         }
     }
 }

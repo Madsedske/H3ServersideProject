@@ -23,8 +23,5 @@ namespace H3ServersideProject.Models
         [Required]
         [MinLength(8)]
         public string? Password { get; set; }
-
-        public byte[] PasswordHash { get; set; }
-        public byte[] PasswordSalt { get; set; }
     }
 }

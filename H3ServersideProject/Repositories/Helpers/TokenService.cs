@@ -14,10 +14,10 @@ namespace H3ServersideProject.Data.Helpers
         {
             _configuration = new ConfigurationManager();
 
-
             List<Claim> claims = new List<Claim>
             {
-            new Claim(ClaimTypes.Email, email)
+            new Claim(ClaimTypes.Email, email),
+            new Claim(ClaimTypes.Role, "Logged in")
             };
 
             var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(

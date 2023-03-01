@@ -6,15 +6,15 @@ namespace H3ServersideProject.Repositories.Interfaces
     {
         IEnumerable<User> GetUsers();
 
-        User GetUser(string email);
+        UserPassword GetUser(string email);
 
         User GetUserData(string email);
 
-        void Insert(User user);
+        void Insert(User user, UserPassword userData);
 
-        void Update(User user);
+        void Update(User user, UserPassword userData);
 
-        void Delete(User user);
+        void RemoveUser(string email);
 
         void save();
     }

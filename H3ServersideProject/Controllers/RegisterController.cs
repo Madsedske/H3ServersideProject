@@ -43,15 +43,18 @@ namespace H3ServersideProject.Controllers
         public ActionResult<User> Post([FromBody] User user)
         {
             PasswordService pswService = new PasswordService();
+            
             try
             {
                 if (ModelState.IsValid)
                 {
-                    pswService.CreatePasswordHash(user.Password, out byte[] passwordHash, out byte[] passwordSalt);
-                    user.PasswordHash = passwordHash;
-                    user.PasswordSalt = passwordSalt;
+                    UserPassword userData= new UserPassword();
 
-                    _userRepo.Insert(user);
+                    pswService.CreatePasswordHash(user.Password, out byte[] passwordHash, out byte[] passwordSalt);
+                    userData.PasswordHash = passwordHash;
+                    userData.PasswordSalt = passwordSalt;
+
+                    _userRepo.Insert(user, userData);
                     _logger.LogInformation($"User registered.");
                     return StatusCode(200);
                 }

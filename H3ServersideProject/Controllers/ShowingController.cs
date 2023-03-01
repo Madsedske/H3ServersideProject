@@ -1,4 +1,5 @@
-﻿using H3ServersideProject.Repositories.Interfaces;
+﻿using H3ServersideProject.Models;
+using H3ServersideProject.Repositories.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -36,6 +37,17 @@ namespace H3ServersideProject.Controllers
             {
                 // Javascript change [seat] color to red
             }
+        }
+
+        [Consumes("application/json")]
+        [HttpPost("[action]")]
+        public ActionResult<Showing> MakeReservation([FromBody] Showing showing)
+        {
+            string email = Request.Cookies["LoginCookie"];
+
+            _showingRepo.InsertReservation(showing.MovieID, showing.Date, email, showing.Seat);
+            _logger.LogInformation($"Reservation made.");
+            return StatusCode(200);
         }
     }
 }

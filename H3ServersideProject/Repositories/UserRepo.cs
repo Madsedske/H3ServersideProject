@@ -1,9 +1,11 @@
 ﻿using H3ServersideProject.Models;
+using H3ServersideProject.Repositories.Helpers;
 using H3ServersideProject.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data;
 using System.Data.SqlClient;
 using System.Numerics;
+using System.Text;
 using System.Xml.Linq;
 
 namespace H3ServersideProject.Data
@@ -18,12 +20,22 @@ namespace H3ServersideProject.Data
             _context = context;
         }
 
-        public void Delete(User user)
+        public void RemoveUser(string email)
         {
-            throw new NotImplementedException();
+            using (IDbConnection con = _context.Connection())
+            {
+                using (SqlCommand cmd = new SqlCommand("RemoveUSer", (SqlConnection)con))
+                {
+                    con.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@email", SqlDbType.VarChar).Value = email;
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
         }
 
-        public User GetUser(string email)
+        public UserPassword GetUser(string email)
         {
             using (IDbConnection con = _context.Connection())
             {
@@ -35,16 +47,15 @@ namespace H3ServersideProject.Data
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@email", SqlDbType.VarChar).Value = email;
 
-                    User user = new User();
+                    UserPassword userPassword = new UserPassword();
                     SqlDataReader dr = cmd.ExecuteReader();
-                    DataTable dt = new DataTable();
                     if (dr.Read())
                     {
-                        user.Password = dr.GetValue(0).ToString();
+                        userPassword.PasswordHash = (byte[])dr[0];
+                        userPassword.PasswordSalt = (byte[])dr[1];                        
                     }
                     con.Close();
-                    return user;
-
+                    return userPassword;
                 }
             }
         }
@@ -86,7 +97,7 @@ namespace H3ServersideProject.Data
             throw new NotImplementedException();
         }
 
-        public void Insert(User user)
+        public void Insert(User user, UserPassword userData)
         {
             using (IDbConnection con = _context.Connection())
             {
@@ -95,8 +106,8 @@ namespace H3ServersideProject.Data
                     con.Open();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@email", SqlDbType.VarChar).Value = user.Email;
-                    cmd.Parameters.AddWithValue("@passwordSalt", SqlDbType.VarChar).Value = user.PasswordSalt;
-                    cmd.Parameters.AddWithValue("@passwordHash", SqlDbType.VarChar).Value = user.PasswordHash;
+                    cmd.Parameters.AddWithValue("@passwordSalt", SqlDbType.VarBinary).Value = userData.PasswordSalt;
+                    cmd.Parameters.AddWithValue("@passwordHash", SqlDbType.VarBinary).Value = userData.PasswordHash;
                     cmd.Parameters.AddWithValue("@address", SqlDbType.VarChar).Value = user.Address;
                     cmd.Parameters.AddWithValue("@name", SqlDbType.VarChar).Value = user.Name;
                     cmd.Parameters.AddWithValue("@phonenumber", SqlDbType.VarChar).Value = user.PhoneNumber;
@@ -111,9 +122,40 @@ namespace H3ServersideProject.Data
             _context.SaveChanges();
         }
 
-        public void Update(User user)
+        public void Update(User user, UserPassword userData)
         {
-            throw new NotImplementedException();
+            PasswordService pswService = new PasswordService();
+            User tempUser = GetUserData(user.Email);
+
+            if (user.Address is not null)
+                tempUser.Address = user.Address;
+            if (user.Name is not null)
+                tempUser.Name = user.Name;
+            if (user.PhoneNumber is not null)
+                tempUser.PhoneNumber = user.PhoneNumber;
+            if (user.Password is not null)
+            {
+                pswService.CreatePasswordHash(user.Password, out byte[] passwordHash, out byte[] passwordSalt);
+                userData.PasswordHash = passwordHash;
+                userData.PasswordSalt = passwordSalt;
+            }
+
+            using (IDbConnection con = _context.Connection())
+            {
+                using (SqlCommand cmd = new SqlCommand("UpdateUser", (SqlConnection)con))
+                {
+                    con.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@email", SqlDbType.VarChar).Value = tempUser.Email;
+                    cmd.Parameters.AddWithValue("@passwordSalt", SqlDbType.VarBinary).Value = userData.PasswordSalt;
+                    cmd.Parameters.AddWithValue("@passwordHash", SqlDbType.VarBinary).Value = userData.PasswordHash;
+                    cmd.Parameters.AddWithValue("@address", SqlDbType.VarChar).Value = tempUser.Address;
+                    cmd.Parameters.AddWithValue("@name", SqlDbType.VarChar).Value = tempUser.Name;
+                    cmd.Parameters.AddWithValue("@phonenumber", SqlDbType.VarChar).Value = tempUser.PhoneNumber;
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
         }
     }
 }

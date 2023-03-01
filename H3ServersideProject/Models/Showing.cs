@@ -4,7 +4,7 @@
     {
         public string MovieName { get; set; }
 
-        public List<int> Seats { get; set; }
+        public int Seat { get; set; }
 
         public DateTime Date { get; set; }
 
