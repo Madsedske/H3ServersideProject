@@ -1,6 +1,6 @@
 ﻿using H3ServersideProject;
 using H3ServersideProject.Data;
-using H3ServersideProject.Data.Helpers;
+using H3ServersideProject.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;

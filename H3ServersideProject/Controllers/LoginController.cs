@@ -1,5 +1,7 @@
 ﻿using H3ServersideProject.Data.Helpers;
 using H3ServersideProject.Models;
+using H3ServersideProject.Repositories.Helpers;
+using H3ServersideProject.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -38,6 +40,7 @@ namespace H3ServersideProject.Controllers
         [HttpPost("Post")]
         public ActionResult<User> Post([FromBody] UserDTO userDTO)
         {
+            var pswService = new PasswordService();
             var tokenService = new TokenService();
             var cookieOptions = new CookieOptions();
 
@@ -47,7 +50,7 @@ namespace H3ServersideProject.Controllers
 
                 if (tempUser.Password is not null)
                 {
-                    if (tempUser.Password == userDTO.Password)
+                    if (pswService.VerifyPassword(userDTO.Password, tempUser.PasswordHash, tempUser.PasswordSalt))
                     {
                         cookieOptions.Expires = DateTime.Now.AddMinutes(2);
                         cookieOptions.Path = "/";
@@ -72,7 +75,6 @@ namespace H3ServersideProject.Controllers
                 }
                 //_userRepo.save();
             }
-
             return StatusCode(200);
         }
     }

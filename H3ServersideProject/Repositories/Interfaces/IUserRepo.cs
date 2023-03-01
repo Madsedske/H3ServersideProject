@@ -1,6 +1,6 @@
 ﻿using H3ServersideProject.Models;
 
-namespace H3ServersideProject.Data.Helpers
+namespace H3ServersideProject.Repositories.Interfaces
 {
     public interface IUserRepo
     {

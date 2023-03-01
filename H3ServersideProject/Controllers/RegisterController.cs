@@ -1,6 +1,7 @@
 ﻿using H3ServersideProject.Data;
-using H3ServersideProject.Data.Helpers;
 using H3ServersideProject.Models;
+using H3ServersideProject.Repositories.Helpers;
+using H3ServersideProject.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Newtonsoft.Json;
@@ -41,10 +42,15 @@ namespace H3ServersideProject.Controllers
         [HttpPost("[action]")]
         public ActionResult<User> Post([FromBody] User user)
         {
+            PasswordService pswService = new PasswordService();
             try
             {
                 if (ModelState.IsValid)
                 {
+                    pswService.CreatePasswordHash(user.Password, out byte[] passwordHash, out byte[] passwordSalt);
+                    user.PasswordHash = passwordHash;
+                    user.PasswordSalt = passwordSalt;
+
                     _userRepo.Insert(user);
                     _logger.LogInformation($"User registered.");
                     return StatusCode(200);

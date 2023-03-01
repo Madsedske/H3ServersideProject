@@ -1,5 +1,5 @@
-﻿using H3ServersideProject.Data.Helpers;
-using H3ServersideProject.Models;
+﻿using H3ServersideProject.Models;
+using H3ServersideProject.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data;
 using System.Data.SqlClient;
@@ -95,7 +95,8 @@ namespace H3ServersideProject.Data
                     con.Open();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@email", SqlDbType.VarChar).Value = user.Email;
-                    cmd.Parameters.AddWithValue("@password", SqlDbType.VarChar).Value = user.Password;
+                    cmd.Parameters.AddWithValue("@passwordSalt", SqlDbType.VarChar).Value = user.PasswordSalt;
+                    cmd.Parameters.AddWithValue("@passwordHash", SqlDbType.VarChar).Value = user.PasswordHash;
                     cmd.Parameters.AddWithValue("@address", SqlDbType.VarChar).Value = user.Address;
                     cmd.Parameters.AddWithValue("@name", SqlDbType.VarChar).Value = user.Name;
                     cmd.Parameters.AddWithValue("@phonenumber", SqlDbType.VarChar).Value = user.PhoneNumber;

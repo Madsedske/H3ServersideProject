@@ -1,5 +1,5 @@
-﻿using H3ServersideProject.Data.Helpers;
-using H3ServersideProject.Models;
+﻿using H3ServersideProject.Models;
+using H3ServersideProject.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +21,7 @@ namespace H3ServersideProject.Controllers
         }
 
         [Produces("application/json")]
-        [HttpGet, Authorize()]
+        [HttpGet, Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult MyProfile()
         {
             var checkCookie = Request.Cookies["LoginCookie"];

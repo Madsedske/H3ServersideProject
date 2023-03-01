@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Data.SqlClient;
 using System.Data;
-using H3ServersideProject.Data.Helpers;
 using H3ServersideProject.Models;
+using H3ServersideProject.Repositories.Interfaces;
 
 namespace H3ServersideProject.Data
 {
