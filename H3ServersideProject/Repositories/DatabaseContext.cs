@@ -6,6 +6,9 @@ namespace H3ServersideProject.Data
 {
     public class DatabaseContext : DbContext
     {
+        /// <summary>
+        /// The database connectionstring.
+        /// </summary>
         private readonly string _databaseName;
         public DatabaseContext(IConfiguration configuration)
         {

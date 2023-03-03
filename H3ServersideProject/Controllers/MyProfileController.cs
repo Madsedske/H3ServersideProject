@@ -32,6 +32,11 @@ namespace H3ServersideProject.Controllers
             _userRepo = userRepo;
         }
 
+        /// <summary>
+        /// The view for MyProfile. Checks for a cookie that contains an email.
+        /// If not, then it cant show the view.
+        /// </summary>
+        /// <returns></returns>
         [Produces("application/json")]
         [HttpGet]
         public IActionResult MyProfile()
@@ -51,6 +56,10 @@ namespace H3ServersideProject.Controllers
             }
         }
 
+        /// <summary>
+        /// A function to logout the user. It deletes the cookie.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("action")]
         public IActionResult Logout()
         {
@@ -59,13 +68,15 @@ namespace H3ServersideProject.Controllers
             if (checkCookie != null)
             {
                 Response.Cookies.Delete("LoginCookie");
-
             }
             return RedirectToAction("Index", "Login");
-
         }
 
-
+        /// <summary>
+        /// The view for a user to update there data.
+        /// Checks for a cookie.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("GetUserView")]
         public IActionResult GetUserView()
         {
@@ -83,7 +94,12 @@ namespace H3ServersideProject.Controllers
             return View("Home");
         }
 
-
+        /// <summary>
+        /// The post request to update the users data. Sets the data into a temporary class.
+        /// Checks again for a cookie.
+        /// </summary>
+        /// <param name="updateUser"></param>
+        /// <returns></returns>
         [Consumes("application/json")]
         [HttpPost("[action]")]
         public ActionResult UpdateUser([FromBody] UpdateUserDTO updateUser)
@@ -93,9 +109,13 @@ namespace H3ServersideProject.Controllers
             if (checkCookie is not null)
             {
                 PasswordService pswService = new PasswordService();
+
+                // Run the method GetUserData with the email from the cookie to get all the users data.
                 User tempUser = _userRepo.GetUserData(checkCookie);
+                // Run the method GetUser to get the users password.
                 UserPassword tempUserPassword = _userRepo.GetUser(checkCookie);
 
+                // If's to check if the user has written anything data to update. The user can choose not update everything.
                 if (!updateUser.Address.IsNullOrEmpty())
                     tempUser.Address = updateUser.Address;
                 if (!updateUser.Name.IsNullOrEmpty())
@@ -104,6 +124,7 @@ namespace H3ServersideProject.Controllers
                     tempUser.PhoneNumber = updateUser.PhoneNumber;
                 if (!updateUser.Password.IsNullOrEmpty())
                 {
+                    // Hash the new password if the user choose the update it.
                     pswService.CreatePasswordHash(updateUser.Password, out byte[] passwordHash, out byte[] passwordSalt);
                     tempUserPassword.PasswordHash = passwordHash;
                     tempUserPassword.PasswordSalt = passwordSalt;
@@ -119,18 +140,5 @@ namespace H3ServersideProject.Controllers
             }           
             return View("Home");
         }
-
-
-        //[HttpGet("action")]
-        //public IActionResult Delete()
-        //{
-        //    var checkCookie = Request.Cookies["LoginCookie"];
-
-        //    if (checkCookie != null)
-        //    {
-        //        _userRepo.RemoveUser(checkCookie);
-        //    }
-        //    return RedirectToAction("Index", "Login");
-        //}
     }
 }

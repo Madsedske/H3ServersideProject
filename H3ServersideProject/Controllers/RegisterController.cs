@@ -30,6 +30,9 @@ namespace H3ServersideProject.Controllers
             _userRepo = userRepo;
         }
 
+        /// <summary>
+        /// View for register a user.
+        /// </summary>
         [HttpGet]
         public IActionResult Register()
         {
@@ -37,19 +40,23 @@ namespace H3ServersideProject.Controllers
             return View();
         }
 
-        // POST: api/Users
+        /// <summary>
+        /// Post the user into the database. Also runs a method to hash the password.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         [Consumes("application/json")]
         [HttpPost("[action]")]
         public ActionResult<User> Post([FromBody] User user)
         {
-            PasswordService pswService = new PasswordService();
-            
+            PasswordService pswService = new PasswordService();            
             try
             {
                 if (ModelState.IsValid)
                 {
                     UserPassword userData= new UserPassword();
 
+                    // Method to hash the password. It sends the user password and gets the hash and salt.
                     pswService.CreatePasswordHash(user.Password, out byte[] passwordHash, out byte[] passwordSalt);
                     userData.PasswordHash = passwordHash;
                     userData.PasswordSalt = passwordSalt;
@@ -60,14 +67,11 @@ namespace H3ServersideProject.Controllers
                 }
                 return RedirectToPage("Login");
             }
+            // Expection if it fails to create the user.
             catch (Exception ex)
             {
                 return StatusCode(500, $"Failed on creating user: {ex}");
             }
         }
-
-        //[HttpPost("[action]")]
-        //[Consumes("application/json")]
-        //public string TestPost([FromBody] User user) => JsonConvert.SerializeObject(user);
     }
 }

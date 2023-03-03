@@ -16,14 +16,18 @@ namespace H3ServersideProject.Data
             _context = context;
         }
 
+        /// <summary>
+        /// This gets the current reservations for the selected movie and date from the database.
+        /// </summary>
+        /// <param name="movieID"></param>
+        /// <param name="date"></param>
+        /// <returns></returns>
         public List<int> GetReservation(int movieID, DateTime date)
         {
             using (IDbConnection con = _context.Connection())
             {
                 using (SqlCommand cmd = new SqlCommand("GetRerservedSeats", (SqlConnection)con))
                 {
-                    // A stored procedure that finds the column shown as a string with an @, the type
-                    // and sets it to the input value of the user - Customers
                     con.Open();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@MovieID", SqlDbType.Int).Value = movieID;
@@ -42,14 +46,19 @@ namespace H3ServersideProject.Data
             }
         }
 
+        /// <summary>
+        /// Inserts a reservation into the database.
+        /// </summary>
+        /// <param name="movieID"></param>
+        /// <param name="date"></param>
+        /// <param name="email"></param>
+        /// <param name="seatID"></param>
         public void InsertReservation(int movieID, DateTime date, string email, int seatID)
         {
             using (IDbConnection con = _context.Connection())
             {
                 using (SqlCommand cmd = new SqlCommand("Reserve", (SqlConnection)con))
                 {
-                    // A stored procedure that finds the column shown as a string with an @, the type
-                    // and sets it to the input value of the user - Customers
                     con.Open();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@MovieID", SqlDbType.Int).Value = movieID;

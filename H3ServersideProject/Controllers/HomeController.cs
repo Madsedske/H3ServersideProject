@@ -13,16 +13,26 @@ namespace H3ServersideProject.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        /// <summary>
+        /// The main view.
+        /// </summary>
+        public IActionResult Index() 
         {
             return View();
         }
 
+
+        /// <summary>
+        /// The view for the prices.
+        /// </summary>
         public IActionResult Priser()
         {            
             return View();
         }
 
+        /// <summary>
+        /// The view for the receipt.
+        /// </summary>
         public IActionResult Receipt()
         {
             return View();

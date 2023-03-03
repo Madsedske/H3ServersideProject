@@ -20,6 +20,10 @@ namespace H3ServersideProject.Data
             _context = context;
         }
 
+        /// <summary>
+        /// This is used to delete a user from the database.
+        /// </summary>
+        /// <param name="email"></param>
         public void RemoveUser(string email)
         {
             using (IDbConnection con = _context.Connection())
@@ -35,14 +39,17 @@ namespace H3ServersideProject.Data
             }
         }
 
+        /// <summary>
+        /// This gets the users password from the database corresponding to a supplied email.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public UserPassword GetUser(string email)
         {
             using (IDbConnection con = _context.Connection())
             {
                 using (SqlCommand cmd = new SqlCommand("Get_User", (SqlConnection)con))
                 {
-                    // A stored procedure that finds the column shown as a string with an @, the type
-                    // and sets it to the input value of the user - Customers
                     con.Open();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@email", SqlDbType.VarChar).Value = email;
@@ -59,14 +66,18 @@ namespace H3ServersideProject.Data
                 }
             }
         }
+
+        /// <summary>
+        /// Gets the users information from the database corresponding to a supplied email.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public User GetUserData(string email)
         {
             using (IDbConnection con = _context.Connection())
             {
                 using (SqlCommand cmd = new SqlCommand("Get_User_Data", (SqlConnection)con))
                 {
-                    // A stored procedure that finds the column shown as a string with an @, the type
-                    // and sets it to the input value of the user - Customers
                     con.Open();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@Email", SqlDbType.VarChar).Value = email;
@@ -91,6 +102,11 @@ namespace H3ServersideProject.Data
             }
         }
 
+        /// <summary>
+        /// This inserts a new user into the database.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="userData"></param>
         public void Insert(User user, UserPassword userData)
         {
             using (IDbConnection con = _context.Connection())
@@ -111,6 +127,11 @@ namespace H3ServersideProject.Data
             }
         }
 
+        /// <summary>
+        /// This updates the user info in the database.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="userData"></param>
         public void Update(User user, UserPassword userData)
         {
             using (IDbConnection con = _context.Connection())

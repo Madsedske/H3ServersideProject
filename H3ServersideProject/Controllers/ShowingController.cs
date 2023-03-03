@@ -20,6 +20,9 @@ namespace H3ServersideProject.Controllers
             _showingRepo = showingRepo;
         }
 
+        /// <summary>
+        /// The view to show the upcoming movie page. 
+        /// </summary>
         [HttpGet]
         public IActionResult Showing()
         {
@@ -27,13 +30,18 @@ namespace H3ServersideProject.Controllers
             return View();
         }
 
-
+        /// <summary>
+        /// Gets the reservation schedule for the chosen date. 
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
         [Consumes("application/json")]
         [HttpPost("[action]")]
         public ActionResult GetReserve([FromBody] string date)
         {
             int movieID;
 
+            // Not the right solution. Not enough time set up the right solution for date picker.
             if (date == "2023/03/13" || date == "2023/03/15" || date == "2023/03/17" || date == "2023/03/19")
             {
                 movieID = 1;
@@ -46,9 +54,14 @@ namespace H3ServersideProject.Controllers
             reservedSeats = _showingRepo.GetReservation(movieID, Convert.ToDateTime(date));
 
             return Ok(reservedSeats);
-
         }
 
+        /// <summary>
+        /// Post the reservation into the database and send the chosen seats.
+        /// Also checks for cookie to ensure the user is logged in to send the email.
+        /// The MakeReservation is only half done.
+        /// </summary>
+        /// <param name="seats"></param>
         [Consumes("application/json")]
         [HttpPost("[action]")]
         public ActionResult MakeReservation([FromBody] int[] seats)
@@ -57,22 +70,11 @@ namespace H3ServersideProject.Controllers
             int movieID = 1;
             DateTime date = new DateTime(2023, 03, 13);
 
-            //if (date == "2023/03/13" || date == "2023/03/15" || date == "2023/03/17" || date == "2023/03/19")
-            //    movieID = 1;
-            //else if (date == "2023/03/14" || date == "2023/03/16" || date == "2023/03/18" || date == "2023/03/20")
-            //    movieID = 2;
-            //else
-            //{
-            //    movieID = 3;
-            //    _logger.LogError($"Wrong Date");
-            //    return StatusCode(500);
-            //}
-
+            // If more seats is chosen, then it can loop to store them all.
             foreach (int seat in seats)
             {
                 _showingRepo.InsertReservation(movieID, date, email, seat);
             }
-
             _logger.LogInformation($"Reservation made.");
             return StatusCode(200);
         }
