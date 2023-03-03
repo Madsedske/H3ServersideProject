@@ -71,7 +71,6 @@ namespace H3ServersideProject.Data
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@Email", SqlDbType.VarChar).Value = email;
 
-
                     User user = new User();
                     SqlDataReader reader1 = cmd.ExecuteReader();
                     if (reader1.Read())
@@ -92,11 +91,6 @@ namespace H3ServersideProject.Data
             }
         }
 
-        public IEnumerable<User> GetUsers()
-        {
-            throw new NotImplementedException();
-        }
-
         public void Insert(User user, UserPassword userData)
         {
             using (IDbConnection con = _context.Connection())
@@ -115,11 +109,6 @@ namespace H3ServersideProject.Data
                     con.Close();
                 }
             }
-        }
-
-        public void save()
-        {
-            _context.SaveChanges();
         }
 
         public void Update(User user, UserPassword userData)

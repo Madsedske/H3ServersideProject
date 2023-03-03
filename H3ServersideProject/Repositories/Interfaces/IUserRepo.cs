@@ -4,8 +4,6 @@ namespace H3ServersideProject.Repositories.Interfaces
 {
     public interface IUserRepo
     {
-        IEnumerable<User> GetUsers();
-
         UserPassword GetUser(string email);
 
         User GetUserData(string email);
@@ -15,7 +13,5 @@ namespace H3ServersideProject.Repositories.Interfaces
         void Update(User user, UserPassword userData);
 
         void RemoveUser(string email);
-
-        void save();
     }
 }
