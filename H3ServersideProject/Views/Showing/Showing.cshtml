@@ -3,6 +3,9 @@
 }
 
 <link rel="stylesheet" href="~/css/SeatsStyleSheet.css" />
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 <div class="container mt-5">
     <h1 class="text-danger text-center">Program</h1>
@@ -22,12 +25,23 @@
                         <div class="card-body">
                             <h2 class="card-title">Scary Movie 2</h2>
                             <p class="card-text">A group of teens including Cindy Campbell (Anna Faris) and Brenda Meeks (Regina Hall) are invited to spend a night in Hell House. Professor Oldman (Tim Curry) has convinced them it is for a school project, but the night won't go past quietly. Master Kane (Richard Moll) is long dead, but still plans on enjoying himself, especially with Alex Monday (Tori Spelling).</p>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownScary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Select a date
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <button class="dropdown-item" value="2023/03/13" onclick="showSeats(this, 1)" type="submit">13/03/2023</button>
+                                    <button class="dropdown-item" value="2023/03/15" onclick="showSeats(this, 1)" type="submit">15/03/2023</button>
+                                    <button class="dropdown-item" value="2023/03/17" onclick="showSeats(this, 1)" type="submit">17/03/2023</button>
+                                    <button class="dropdown-item" value="2023/03/19" onclick="showSeats(this, 1)" type="submit">19/03/2023</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-6 hide">
+        <div class="col-lg-6 hide" id="visibleSeats1">
             <h3 class="text-danger text-center">Vælg sæder</h3>
             <div class="container mt-3">
                 <div class="row">
@@ -100,6 +114,13 @@
                                         <small>Sold</small>
                                     </li>
                                 </ul>
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="text-center">
+                                            <button class="btn btn-primary" onclick="reserve()" type="button" id="ReserveBtn">Reserver</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -123,12 +144,23 @@
                         <div class="card-body">
                             <h2 class="card-title">Spider-Man: No Way Home</h2>
                             <p class="card-text">Peter Parker's secret identity is revealed to the entire world. Desperate for help, Peter turns to Doctor Strange to make the world forget that he is Spider-Man. The spell goes horribly wrong and shatters the multiverse, bringing in monstrous villains that could destroy the world.</p>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownSpiderman" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Select a date
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <button class="dropdown-item" onclick="showSeats(this, 2)" type="button">14/03/2023</button>
+                                    <button class="dropdown-item" onclick="showSeats(this, 2)" type="button">16/03/2023</button>
+                                    <button class="dropdown-item" onclick="showSeats(this, 2)" type="button">18/03/2023</button>
+                                    <button class="dropdown-item" onclick="showSeats(this, 2)" type="button">20/03/2023</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-6 hide">
+        <div class="col-lg-6 hide" id="visibleSeats2">
             <h3 class="text-danger text-center">Vælg sæder</h3>
             <div class="container mt-3">
                 <div class="row">
@@ -213,4 +245,69 @@
 <script src="~/js/ReservationScript.js">
 </script>
 
+<script>
+    function showSeats(diller, diller2) {
+        const date = $(diller).val();
 
+        document.getElementById("visibleSeats1").style.visibility = "visible";
+
+        const section = document.getElementById("visibleSeats1");
+        const selectedSeats = section.querySelectorAll(".seat");
+
+        selectedSeats.forEach(function (seat, index) {
+            if (seat.classList.contains('sold'))
+                seat.classList.remove('sold');
+        });
+
+        $.ajax({
+            url: "/Showing/GetReserve",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(date),
+            success: function (result) {
+                console.log(result);
+
+                selectedSeats.forEach(function (seat, index) {
+                    const seatsFromServer = Array.from(result);
+                    if (seatsFromServer.indexOf(index) > -1) {
+                        seat.classList.add('sold');
+                    }
+                });
+                console.log(result);
+            },
+            error: function (errorThrown) {
+                console.log("Error: " + errorThrown);
+            }
+        });
+    }
+</script>
+
+<script>
+    function reserve() {
+        const section = document.getElementById("visibleSeats1");
+
+        const selectedSeats = section.querySelectorAll(".seat");
+
+        let selected = [];
+        selectedSeats.forEach(function (element, index) {
+            if (element.classList.contains("selected")) selected.push(index);
+        });            
+
+        $.ajax({
+            url: "/Showing/MakeReservation",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(selected),
+            success: function (result) {
+                console.log(result);
+                window.location.href = "/Home/Receipt";
+            },
+            error: function (errorThrown) {
+                console.log("Error: " + errorThrown);
+            }
+        });
+    }
+</script>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

@@ -53,7 +53,7 @@ namespace H3ServersideProject.Controllers
                 {
                     if (pswService.VerifyPassword(userDTO.Password, tempUser.PasswordHash, tempUser.PasswordSalt))
                     {
-                        cookieOptions.Expires = DateTime.Now.AddMinutes(2);
+                        cookieOptions.Expires = DateTime.Now.AddMinutes(30);
                         cookieOptions.Path = "/";
                         Response.Cookies.Append("LoginCookie", userDTO.Email, cookieOptions);
                         tokenService.CreateToken(userDTO.Email);

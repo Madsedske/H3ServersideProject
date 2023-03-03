@@ -1,8 +1,12 @@
 ﻿@import url("https://fonts.googleapis.com/css?family=latodisplay=swap");
 
 .hide {
-    visibility: visible;
+    visibility: hidden;
 }
+
+    .hide .show {
+        visibility: visible;
+    }
 
 .allSeats {
     background: rgba(0,0,0,0.1);

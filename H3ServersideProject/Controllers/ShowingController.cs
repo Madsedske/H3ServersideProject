@@ -2,6 +2,8 @@
 using H3ServersideProject.Repositories.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Net.Http.Headers;
 
 namespace H3ServersideProject.Controllers
 {
@@ -25,27 +27,52 @@ namespace H3ServersideProject.Controllers
             return View();
         }
 
-        [HttpGet("action")]
-        public void GetReserve()
-        {
-            int movieID = 1; // Get from website
-            DateTime date = DateTime.Now; // Get from website
 
-            List<int> reservedSeats = new List<int>();
-            reservedSeats = _showingRepo.GetReservation(movieID, date);
-            foreach (int seat in reservedSeats)
+        [Consumes("application/json")]
+        [HttpPost("[action]")]
+        public ActionResult GetReserve([FromBody] string date)
+        {
+            int movieID;
+
+            if (date == "2023/03/13" || date == "2023/03/15" || date == "2023/03/17" || date == "2023/03/19")
             {
-                // Javascript change [seat] color to red
+                movieID = 1;
             }
+            else
+            {
+                movieID = 2;
+            }
+            List<int> reservedSeats = new List<int>();
+            reservedSeats = _showingRepo.GetReservation(movieID, Convert.ToDateTime(date));
+
+            return Ok(reservedSeats);
+
         }
 
         [Consumes("application/json")]
         [HttpPost("[action]")]
-        public ActionResult<Showing> MakeReservation([FromBody] Showing showing)
+        public ActionResult MakeReservation([FromBody] int[] seats)
         {
             string email = Request.Cookies["LoginCookie"];
+            int movieID = 1;
+            DateTime date = new DateTime(2023, 03, 13);
 
-            _showingRepo.InsertReservation(showing.MovieID, showing.Date, email, showing.Seat);
+            //if (date == "2023/03/13" || date == "2023/03/15" || date == "2023/03/17" || date == "2023/03/19")
+            //    movieID = 1;
+            //else if (date == "2023/03/14" || date == "2023/03/16" || date == "2023/03/18" || date == "2023/03/20")
+            //    movieID = 2;
+            //else
+            //{
+            //    movieID = 3;
+            //    _logger.LogError($"Wrong Date");
+            //    return StatusCode(500);
+            //}
+
+            foreach (int seat in seats)
+            {
+                _showingRepo.InsertReservation(movieID, date, email, seat);
+            }
+
             _logger.LogInformation($"Reservation made.");
             return StatusCode(200);
         }

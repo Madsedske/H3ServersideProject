@@ -20,7 +20,7 @@ namespace H3ServersideProject.Data
         {
             using (IDbConnection con = _context.Connection())
             {
-                using (SqlCommand cmd = new SqlCommand("GetReservedSeats", (SqlConnection)con))
+                using (SqlCommand cmd = new SqlCommand("GetRerservedSeats", (SqlConnection)con))
                 {
                     // A stored procedure that finds the column shown as a string with an @, the type
                     // and sets it to the input value of the user - Customers
@@ -54,7 +54,7 @@ namespace H3ServersideProject.Data
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@MovieID", SqlDbType.Int).Value = movieID;
                     cmd.Parameters.AddWithValue("@Date", SqlDbType.Date).Value = date;
-                    cmd.Parameters.AddWithValue(@"Email", SqlDbType.VarChar).Value = email;
+                    cmd.Parameters.AddWithValue("@Email", SqlDbType.VarChar).Value = email;
                     cmd.Parameters.AddWithValue("@SeatID", SqlDbType.Int).Value = seatID;
                     cmd.ExecuteNonQuery();
                     con.Close();
