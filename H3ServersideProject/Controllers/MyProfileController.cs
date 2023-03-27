@@ -19,6 +19,7 @@ using System.Web.WebPages;
 
 namespace H3ServersideProject.Controllers
 {
+    [Authorize()]
     [Route("MyProfile")]
     [ApiController]
     public class MyProfileController : Controller

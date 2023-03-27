@@ -13,14 +13,15 @@ namespace H3ServersideProject.Repositories.Helpers
         /// <param name="password"></param>
         /// <param name="passwordHash"></param>
         /// <param name="passwordSalt"></param>
-        public void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+        public void CreatePasswordHash(string password, out byte[] newHash, out byte[] passwordSalt)
         {
             using (var hmac = new HMACSHA512())
             {
                 // Sets the passwordSalt with HMAC algoritm.
                 passwordSalt = hmac.Key;
                 // Hash the user password.
-                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+                byte [] passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+                ComboHash(passwordHash, passwordSalt, out newHash);
             }
         }
         
@@ -38,8 +39,22 @@ namespace H3ServersideProject.Repositories.Helpers
             {
                 // Hash the password to compare it with stored hash password.
                 var Hash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-                return Hash.SequenceEqual(passwordHash);
+                ComboHash(Hash, passwordSalt, out byte[] newHash);
+
+                return newHash.SequenceEqual(passwordHash);
             }
+        }
+
+        private void ComboHash(byte[] passwordHash, byte[] passwordSalt, out byte[] newHash)
+        {
+            //Create a new array based on the total number of two array elements to be merged
+            newHash = new byte[passwordHash.Length + passwordSalt.Length];
+
+            //Copy the first array to the newly created array
+            Array.Copy(passwordHash, 0, newHash, 0, passwordHash.Length);
+
+            //Copy the second array to the newly created array
+            Array.Copy(passwordSalt, 0, newHash, passwordHash.Length, passwordSalt.Length);
         }
     }
 }

@@ -39,14 +39,14 @@ namespace H3ServersideProject.Controllers
         [HttpPost("[action]")]
         public ActionResult GetReserve([FromBody] string date)
         {
-            int movieID;
+            int movieID = 0;
 
             // Not the right solution. Not enough time set up the right solution for date picker.
             if (date == "2023/03/13" || date == "2023/03/15" || date == "2023/03/17" || date == "2023/03/19")
             {
                 movieID = 1;
             }
-            else
+            else if (date == "2023/03/14" || date == "2023/03/16" || date == "2023/03/18" || date == "2023/03/20")
             {
                 movieID = 2;
             }

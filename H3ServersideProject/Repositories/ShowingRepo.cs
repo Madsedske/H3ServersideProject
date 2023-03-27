@@ -12,7 +12,6 @@ namespace H3ServersideProject.Data
 
         public ShowingRepo(DatabaseContext context)
         {
-
             _context = context;
         }
 

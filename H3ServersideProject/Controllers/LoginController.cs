@@ -65,11 +65,12 @@ namespace H3ServersideProject.Controllers
                     // Checks if the userinput matches the password in the database and on success creates a cookie.
                     if (pswService.VerifyPassword(userDTO.Password, tempUser.PasswordHash, tempUser.PasswordSalt))
                     {
-                        cookieOptions.Expires = DateTime.Now.AddMinutes(30);
+                        cookieOptions.Expires = DateTime.Now.AddMinutes(1);
                         cookieOptions.Path = "/";
                         Response.Cookies.Append("LoginCookie", userDTO.Email, cookieOptions);
+                        Response.Cookies.Append("AuthCookie", tokenService.CreateToken(userDTO.Email), cookieOptions);
                         tokenService.CreateToken(userDTO.Email);
-                        
+
                         // Set the user as logged in
                         _logger.LogInformation($"User logged in");
 

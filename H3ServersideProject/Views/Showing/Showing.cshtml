@@ -148,11 +148,11 @@
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownSpiderman" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Select a date
                                 </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <button class="dropdown-item" onclick="showSeats(this, 2)" type="button">14/03/2023</button>
-                                    <button class="dropdown-item" onclick="showSeats(this, 2)" type="button">16/03/2023</button>
-                                    <button class="dropdown-item" onclick="showSeats(this, 2)" type="button">18/03/2023</button>
-                                    <button class="dropdown-item" onclick="showSeats(this, 2)" type="button">20/03/2023</button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">                                
+                                    <button class="dropdown-item" value="2023/03/14" onclick="showSeats(this, 2)" type="button">14/03/2023</button>
+                                    <button class="dropdown-item" value="2023/03/16" onclick="showSeats(this, 2)" type="button">16/03/2023</button>
+                                    <button class="dropdown-item" value="2023/03/18" onclick="showSeats(this, 2)" type="button">18/03/2023</button>
+                                    <button class="dropdown-item" value="2023/03/20" onclick="showSeats(this, 2)" type="button">20/03/2023</button>
                                 </div>
                             </div>
                         </div>
@@ -249,7 +249,17 @@
     function showSeats(diller, diller2) {
         const date = $(diller).val();
 
-        document.getElementById("visibleSeats1").style.visibility = "visible";
+        if (diller2 == 1)
+        {
+            document.getElementById("visibleSeats2").style.visibility = "hidden";
+            document.getElementById("visibleSeats1").style.visibility = "visible";
+        }  
+        
+        if (diller2 == 2)
+        {
+            document.getElementById("visibleSeats1").style.visibility = "hidden";
+            document.getElementById("visibleSeats2").style.visibility = "visible";
+        }      
 
         const section = document.getElementById("visibleSeats1");
         const selectedSeats = section.querySelectorAll(".seat");
