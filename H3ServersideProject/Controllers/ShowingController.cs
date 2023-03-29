@@ -37,21 +37,10 @@ namespace H3ServersideProject.Controllers
         /// <returns></returns>
         [Consumes("application/json")]
         [HttpPost("[action]")]
-        public ActionResult GetReserve([FromBody] string date)
+        public ActionResult GetReserve([FromBody] GetReserveDTO getReserveDTO)
         {
-            int movieID = 0;
-
-            // Not the right solution. Not enough time set up the right solution for date picker.
-            if (date == "2023/03/13" || date == "2023/03/15" || date == "2023/03/17" || date == "2023/03/19")
-            {
-                movieID = 1;
-            }
-            else if (date == "2023/03/14" || date == "2023/03/16" || date == "2023/03/18" || date == "2023/03/20")
-            {
-                movieID = 2;
-            }
             List<int> reservedSeats = new List<int>();
-            reservedSeats = _showingRepo.GetReservation(movieID, Convert.ToDateTime(date));
+            reservedSeats = _showingRepo.GetReservation(getReserveDTO.GetMovieID, Convert.ToDateTime(getReserveDTO.GetReserveDate));
 
             return Ok(reservedSeats);
         }
@@ -64,16 +53,13 @@ namespace H3ServersideProject.Controllers
         /// <param name="seats"></param>
         [Consumes("application/json")]
         [HttpPost("[action]")]
-        public ActionResult MakeReservation([FromBody] int[] seats)
+        public ActionResult MakeReservation([FromBody] ReserveDTO reserveDTO)
         {
             string email = Request.Cookies["LoginCookie"];
-            int movieID = 1;
-            DateTime date = new DateTime(2023, 03, 13);
-
             // If more seats is chosen, then it can loop to store them all.
-            foreach (int seat in seats)
+            foreach (int seat in reserveDTO.Seats)
             {
-                _showingRepo.InsertReservation(movieID, date, email, seat);
+                _showingRepo.InsertReservation(reserveDTO.MovieID, Convert.ToDateTime(reserveDTO.ReserveDate), email, seat);
             }
             _logger.LogInformation($"Reservation made.");
             return StatusCode(200);

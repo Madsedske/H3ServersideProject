@@ -26,7 +26,7 @@
                             <h2 class="card-title">Scary Movie 2</h2>
                             <p class="card-text">A group of teens including Cindy Campbell (Anna Faris) and Brenda Meeks (Regina Hall) are invited to spend a night in Hell House. Professor Oldman (Tim Curry) has convinced them it is for a school project, but the night won't go past quietly. Master Kane (Richard Moll) is long dead, but still plans on enjoying himself, especially with Alex Monday (Tori Spelling).</p>
                             <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownScary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Select a date
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -145,7 +145,7 @@
                             <h2 class="card-title">Spider-Man: No Way Home</h2>
                             <p class="card-text">Peter Parker's secret identity is revealed to the entire world. Desperate for help, Peter turns to Doctor Strange to make the world forget that he is Spider-Man. The spell goes horribly wrong and shatters the multiverse, bringing in monstrous villains that could destroy the world.</p>
                             <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownSpiderman" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdown2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Select a date
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">                                
@@ -233,6 +233,13 @@
                                         <small>Sold</small>
                                     </li>
                                 </ul>
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="text-center">
+                                            <button class="btn btn-primary" onclick="reserve()" type="button" id="ReserveBtn2">Reserver</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -246,78 +253,157 @@
 </script>
 
 <script>
+    var date;
+    var selectedSeats;
+   
     function showSeats(diller, diller2) {
-        const date = $(diller).val();
-
-        if (diller2 == 1)
-        {
+        date = $(diller).val();
+    
+        if (diller2 == 1) {
+            document.getElementById("dropdown1").innerHTML = date;
+            document.getElementById("dropdown2").innerHTML = "Select a date";
             document.getElementById("visibleSeats2").style.visibility = "hidden";
             document.getElementById("visibleSeats1").style.visibility = "visible";
-        }  
-        
-        if (diller2 == 2)
-        {
-            document.getElementById("visibleSeats1").style.visibility = "hidden";
-            document.getElementById("visibleSeats2").style.visibility = "visible";
-        }      
+            const section = document.getElementById("visibleSeats1");
+            selectedSeats = section.querySelectorAll(".seat");
 
-        const section = document.getElementById("visibleSeats1");
-        const selectedSeats = section.querySelectorAll(".seat");
-
-        selectedSeats.forEach(function (seat, index) {
+            selectedSeats.forEach(function (seat, index) {
             if (seat.classList.contains('sold'))
                 seat.classList.remove('sold');
-        });
+            });
 
-        $.ajax({
-            url: "/Showing/GetReserve",
-            type: "POST",
-            contentType: "application/json",
-            data: JSON.stringify(date),
-            success: function (result) {
-                console.log(result);
+            var formData = {
+                getMovieID: diller2,
+                getReserveDate: date
+            };
 
-                selectedSeats.forEach(function (seat, index) {
-                    const seatsFromServer = Array.from(result);
-                    if (seatsFromServer.indexOf(index) > -1) {
-                        seat.classList.add('sold');
-                    }
-                });
-                console.log(result);
-            },
-            error: function (errorThrown) {
-                console.log("Error: " + errorThrown);
-            }
-        });
+            $.ajax({
+                url: "/Showing/GetReserve",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(formData),
+                success: function (result) {
+                    console.log(result);
+
+                    selectedSeats.forEach(function (seat, index) {
+                        const seatsFromServer = Array.from(result);
+                        if (seatsFromServer.indexOf(index) > -1) {
+                            seat.classList.add('sold');
+                        }
+                    });
+                    console.log(result);
+                },
+                error: function (errorThrown) {
+                    console.log("Error: " + errorThrown);
+                }
+            });
+        }  
+      
+        else if (diller2 == 2) {
+            document.getElementById("dropdown2").innerHTML = date;
+            document.getElementById("dropdown1").innerHTML = "Select a date";
+            document.getElementById("visibleSeats1").style.visibility = "hidden";
+            document.getElementById("visibleSeats2").style.visibility = "visible";
+            const section = document.getElementById("visibleSeats2");
+            selectedSeats = section.querySelectorAll(".seat");
+
+            selectedSeats.forEach(function (seat, index) {
+            if (seat.classList.contains('sold'))
+                seat.classList.remove('sold');
+            });
+
+            var formData = {
+                getMovieID: diller2,
+                getReserveDate: date
+            };
+
+            $.ajax({
+                url: "/Showing/GetReserve",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(formData),
+                success: function (result) {
+                    console.log(result);
+
+                    selectedSeats.forEach(function (seat, index) {
+                        const seatsFromServer = Array.from(result);
+                        if (seatsFromServer.indexOf(index) > -1) {
+                            seat.classList.add('sold');
+                        }
+                    });
+                    console.log(result);
+                },
+                error: function (errorThrown) {
+                    console.log("Error: " + errorThrown);
+                }
+            });
+         }            
     }
-</script>
 
-<script>
+
     function reserve() {
-        const section = document.getElementById("visibleSeats1");
+        if (document.getElementById("visibleSeats1").style.visibility == "visible") {
+            const section = document.getElementById("visibleSeats1");
 
-        const selectedSeats = section.querySelectorAll(".seat");
+            const selectedSeats = section.querySelectorAll(".seat");
 
-        let selected = [];
-        selectedSeats.forEach(function (element, index) {
-            if (element.classList.contains("selected")) selected.push(index);
-        });            
+            let selected = [];
+            selectedSeats.forEach(function (element, index) {
+                if (element.classList.contains("selected")) selected.push(index);
+            });
 
-        $.ajax({
-            url: "/Showing/MakeReservation",
-            type: "POST",
-            contentType: "application/json",
-            data: JSON.stringify(selected),
-            success: function (result) {
-                console.log(result);
-                window.location.href = "/Home/Receipt";
-            },
-            error: function (errorThrown) {
-                console.log("Error: " + errorThrown);
-            }
-        });
+            var formData = {
+                seats: selected,
+                movieID: 1,
+                reserveDate: date
+            };
+
+            $.ajax({
+                url: "/Showing/MakeReservation",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(formData),
+                success: function (result) {
+                    console.log(result);
+                    window.location.href = "/Home/Receipt";
+                },
+                error: function (errorThrown) {
+                    console.log("Error: " + errorThrown);
+                }
+            });
+        }     
+
+        else if (document.getElementById("visibleSeats2").style.visibility == "visible") {
+            const section = document.getElementById("visibleSeats2");
+
+            const selectedSeats = section.querySelectorAll(".seat");
+
+            let selected = [];
+            selectedSeats.forEach(function (element, index) {
+                if (element.classList.contains("selected")) selected.push(index);
+            });
+
+              var formData = {
+                seats: selected,
+                movieID: 2,
+                reserveDate: date
+            };
+
+            $.ajax({
+                url: "/Showing/MakeReservation",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(formData),
+                success: function (result) {
+                    console.log(result);
+                    window.location.href = "/Home/Receipt";
+                },
+                error: function (errorThrown) {
+                    console.log("Error: " + errorThrown);
+                }
+            });
+        }     
     }
 </script>
-
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

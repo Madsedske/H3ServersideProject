@@ -11,25 +11,23 @@
                 <div class="card text-white" style="border-radius: 1rem; background-color: slategrey !important;">
                     <div class="card-body p-5 text-center">
                         <div class="mb-5 mt-md-4 pb-5">
-
                             <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
-                            <p class="text-white-50 mb-5">Please enter your login and password!</p>
                             <hr />
                             <form id="login-form">
                                 <!-- EMAIL-->
                                 <div class="form-outline form-white mb-4">
                                     <label class="form-label" for="typeEmailX"><b>Email</b></label>
-                                    <input type="email" placeholder="Enter Email" name="eml" ID="email" class="form-control form-control-lg">
+                                    <input type="email" placeholder="Email" name="eml" ID="email" class="form-control form-control-lg">
                                 </div>
                                 <!-- EMAIL-->
                                 <!-- PASSWORD-->
                                 <div class="form-outline form-white mb-4">
-                                    <label class="form-label" for="typePasswordX"><b>Password</b></label>
-                                    <input type="password" placeholder="Enter Password" name="psw" id="password" class="form-control form-control-lg">
+                                    <label class="form-label" for="typePasswordX"><b>Kodeord</b></label>
+                                    <input type="password" placeholder="Kodeord" name="psw" id="password" class="form-control form-control-lg">
                                 </div>
                                 <!-- PASSWORD-->
 
-                                <p class="small mb-5 pb-lg-2"> <a asp-area="" asp-controller="ResetPassword" asp-action="ResetPassword" class="text-white-50">Forgot password?</a></p>
+                                <p class="small mb-5 pb-lg-2"> <a asp-area="" asp-controller="ResetPassword" asp-action="ResetPassword" class="text-white-50">Glemt dit kodeord?</a></p>
 
 
                                 <button class="btn btn-outline-light btn-lg px-5" type="submit" id="login-button">Login</button>
@@ -37,7 +35,7 @@
 
                         </div>
                         <div>
-                            <p class="mb-0">Don't have an account? <a asp-area="" asp-controller="Register" asp-action="Register" class="text-white-50 fw-bold">Sign Up</a></p>
+                            <a asp-area="" asp-controller="Register" asp-action="Register" class="text-white-50 fw-bold">Opret en bruger</a>
                         </div>
                     </div>
                 </div>

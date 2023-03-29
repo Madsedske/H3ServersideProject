@@ -23,7 +23,7 @@ namespace H3ServersideProject.Data.Helpers
             List<Claim> claims = new List<Claim>
             {
             new Claim(ClaimTypes.Email, email),
-            new Claim(ClaimTypes.Role, "Logged in")
+            new Claim(ClaimTypes.Role, "Loggedin")
             };
 
             // Gets the security key that a stored in appsettings.json
