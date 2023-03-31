@@ -151,5 +151,71 @@ namespace H3ServersideProject.Data
                 }
             }
         }
+
+        public List<GetUserReservation> GetUserReservation(string email)
+        {
+            using (IDbConnection con = _context.Connection())
+            {
+                using (SqlCommand cmd = new SqlCommand("GetUserReservations", (SqlConnection)con))
+                {
+                    con.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@email", SqlDbType.VarChar).Value = email;
+
+                   
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    List<GetUserReservation> listUserReservations = new List<GetUserReservation>();
+                    //if (dr.Read())
+                    //{
+                    //    getUserReservation.Seat = (int)dr[0];
+                    //    getUserReservation.Movie = (int)dr[1];
+                    //    getUserReservation.Date = (DateTime)dr[2];
+                    //}
+                    //int count = GetReserveCount(email);
+                    //if (dr.Read())
+                    //{
+                    //    for (int i = 0; i < count; i += 3)
+                    //    {
+                    //        getUserReservation.Seat = (int)dr[i];
+                    //        getUserReservation.Movie = (string)dr[i + 1];
+                    //        getUserReservation.Date = (DateTime)dr[i + 2];
+                    //        listUserReservations.Add(getUserReservation);
+                    //    }
+                    //}
+                    while (dr.Read())
+                    {
+                        GetUserReservation getUserReservation = new GetUserReservation();
+                        getUserReservation.Seat = (int)dr[0];
+                        getUserReservation.Movie = dr[1].ToString();
+                        getUserReservation.Date = (DateTime)dr[2];
+                        listUserReservations.Add(getUserReservation);
+                    }
+                    con.Close();
+                    return listUserReservations;
+                }
+            }
+        }
+
+        public int GetReserveCount(string email)
+        {
+            using (IDbConnection con = _context.Connection())
+            {
+                using (SqlCommand cmd = new SqlCommand("GetUserReservationCount", (SqlConnection)con))
+                {
+                    int count = 0;
+                    con.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@email", SqlDbType.VarChar).Value = email;
+
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    if (dr.Read())
+                    {
+                        count = (int)dr[0];
+                    }
+                    con.Close();
+                    return count;
+                }
+            }
+        }
     }
 }

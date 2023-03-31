@@ -1,0 +1,23 @@
+﻿.gradient-custom {
+    /* fallback for old browsers */
+    background: rgba(13, 110, 253, 99);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right bottom, rgba(13, 110, 253, 99), rgba(0, 31, 230, 90));
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right bottom, rgba(13, 110, 253, 99), rgba(0, 31, 230, 90));
+}
+
+.gradient-custom-profile {
+    background: linear-gradient(to right bottom, rgba(254, 204, 0, 60), rgba(253, 156, 13, 99))
+}
+
+.alerts {
+    display: none;
+    font-weight: 400;
+    border-radius: 4px;
+    height: max-content;
+}
+
+    .alerts alert-text {
+        border-radius: 4px;
+    }

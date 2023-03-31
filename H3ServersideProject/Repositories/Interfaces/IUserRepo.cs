@@ -9,5 +9,6 @@ namespace H3ServersideProject.Repositories.Interfaces
         void Insert(User user, UserPassword userData);
         void Update(User user, UserPassword userData);
         void RemoveUser(string email);
+        List<GetUserReservation> GetUserReservation(string email);
     }
 }

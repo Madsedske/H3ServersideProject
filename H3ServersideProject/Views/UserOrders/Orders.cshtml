@@ -1,0 +1,53 @@
+﻿@model H3ServersideProject.Models.GetUserReservation
+@{
+    ViewData["Title"] = "UserOrders";
+}
+
+<section>
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col col-lg-6 mb-4 mb-lg-0">
+                <div class="card mb-3" style="border-radius: .5rem; background-color: slategray !important;">
+                    <div class="row g-0">
+                        <div class="col-md-12">
+                            <div class="card-body p-4">
+                                <h4 class="text-white">Dine billetter</h4>
+                                <hr class="mt-0 mb-4">
+                                <div class="row pt-1">
+                                    <div class="col-12 mb-3">
+                                        <table class="table table-borderless">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col"><h6 class="text-white">Dato</h6></th>
+                                                    <th scope="col"><h6 class="text-white">Film</h6></th>
+                                                    <th scope="col"><h6 class="text-white">Sæde</h6></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (GetUserReservation order in (List<GetUserReservation>)ViewBag.Order)
+                                                {
+                                                    <tr>
+
+                                                        <td><p style="font-weight:500">@order.Date</p></td>
+                                                        <td><p style="font-weight:500">@order.Movie</p></td>
+                                                        <td colspan="2"><p style="font-weight:500">@order.Seat</p></td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <hr class="mt-0 mb-4">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h6><a class="text-white" asp-area="" asp-controller="MyProfile" asp-action="MyProfile">Tilbage</a></h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

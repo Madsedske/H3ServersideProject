@@ -2,7 +2,58 @@
 @{
     ViewData["Title"] = "MyProfile";
 }
+<link rel="stylesheet" href="~/css/MyProfileStyle.css" />
 
+<section>
+    <div class="container py-5 mt-5 mb-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col col-lg-8 mb-4 mb-lg-0">
+                <div class="card mb-3" style="border-radius: .5rem; background-color: slategray !important;">
+                    <div class="row g-0">
+                        <div class="col-md-4 gradient-custom-profile text-center text-white"
+                             style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+                            <img src="/lib/Pictures/BB.png"
+                                 alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
+                            <h5 style="color:dimgrey"><b></b>@Html.DisplayFor(model => model.Name)</h5>
+                            <p class="mt-4"><a style="color:dimgray" asp-area="" asp-controller="MyProfile" asp-action="Logout">Log ud</a></p>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body p-4">
+                                <h4 class="text-white">Dine oplysninger</h4>
+                                <hr class="mt-0 mb-4">
+                                <div class="row pt-1">
+                                    <div class="col-6 mb-3">
+                                        <h6 class="text-white">Email</h6>
+                                        <p class="text-white"><b></b>@Html.DisplayFor(model => model.Email)</p>
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <h6 class="text-white">Mobilnummer</h6>
+                                        <p class="text-white"><b></b>@Html.DisplayFor(model => model.PhoneNumber)</p>
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <h6 class="text-white">Adresse</h6>
+                                        <p class="text-white"><b></b> @Html.DisplayFor(model => model.Address)</p>
+                                    </div>
+                                </div>
+                                <hr class="mt-0 mb-4">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h6><a text-white" style="color:black" asp-area="" asp-controller="UserOrders" asp-action="Orders">Se dine billetter</a></h6>
+                                    </div>
+                                    <div class="col-6">
+                                        <h6><a text-white" style="color:black" asp-area="" asp-controller="MyProfile" asp-action="GetUserView">Opdater dine oplysninger</a></h6>
+                                    </div>
+                                </div>                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@*
 <section>
     <div class="container py-5 h-100">
         <!--Color til login - #d86502/#02D8D0 -->
@@ -48,7 +99,7 @@
                             </div>
                             <br />
                             <h5 class="mt-3"><a class="nav-link text-white" asp-area="" asp-controller="MyProfile" asp-action="GetUserView">Opdater dine oplysninger</a> </h5>
-                            <h5><a class="nav-link text-white" asp-area="" asp-controller="MyProfile" asp-action="GetUserView">Se dine billetter</a></h5>
+                            <h5><a class="nav-link text-white" asp-area="" asp-controller="UserOrders" asp-action="Orders">Se dine billetter</a></h5>
                         </div>      
                         <h5 class="mt-4"><a class="nav-link text-white" asp-area="" asp-controller="MyProfile" asp-action="Logout">Log ud</a></h5>
                     </div>
@@ -56,4 +107,4 @@
             </div>
         </div>
     </div>
-</section>
+</section>*@

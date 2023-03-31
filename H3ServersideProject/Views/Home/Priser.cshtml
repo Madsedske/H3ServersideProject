@@ -1,45 +1,123 @@
 ﻿@{
     ViewData["Title"] = "Priser";
 }
-<div class="container-fluid mt-5">
-    <div>
-        <center>
-            <img src="~/lib/Pictures/Pris.png" />
-        </center>
-    </div>
-    <div class="row">
-        <div class="col-4 border-danger border-4">
-            <h4 style="color:white">Billet Priser</h4>
-            <p style="color:white">
-                Normal billet 100 kr. (10kr rabat på de to første og sidste rækker)
-                <br />Eksklusivt sæde 120 kr.
-                <br />Børn eller pensionister 90 kr.
-                <br />
-                <br />Forestillinger over 2 timer koster 20 kr.yderligere per påbegyndt halve time.
-            </p>
-        </div>
 
-        <div class="col-4 border-danfer border-4">
-            <h4 style="color:white">Sodavand</h4>
-            <p style="color:white">
-                Lille sodavand 20 kr.
-                <br />Mellem sodavand 30 kr.
-                <br />Stor sodavand 45 kr.
-            </p>
+<div class="pricing6 py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 text-center">
+                <center>
+                    <img src="~/lib/Pictures/Pris.png" />
+                </center>
+            </div>
         </div>
-
-        <div class="col-4 border-danger border-4">
-            <h4 style="color:white">Slik</h4>
-            <p style="color:white">
-                100 g bland-selv slik 25 kr.
-                <br />
-            </p>
-            <h4 style="color:white">Popcorn</h4>
-            <p style="color:white">
-                Lille popcorn 15 kr.
-                <br />Mellem popcorn 20 kr.
-                <br />Stor popcorn 30 kr.
-            </p>
+        <div class="row mt-4">
+            <div class="col-2"></div>
+            <div class="col-md-8">
+                <div class="card card-shadow border-0 mb-4" style="background-color: slategrey !important; color:white;">
+                    <div class="card-body p-4" >
+                        <div class="d-flex align-items-center">
+                            <h3 class="font-weight-medium mb-0">Billet Priser</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-5 text-center">
+                                <div class="price-box my-3">
+                                      <center>
+                                        <img src="~/lib/Pictures/tickets.png" style="width:80px;" />
+                                    </center>
+                                    <h6 class="font-weight-light mt-3">Forestillinger over 2 timer koster 20 kr. yderligere per påbegyndt halve time.</h6>
+                                </div>
+                            </div>
+                            <div class="col-lg-7 align-self-center">
+                                <ul class="list-inline pl-3 font-14 font-weight-medium text-white">
+                                    <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Normal billet - 100 kr. (10kr rabat på de to første og sidste rækker)</span></li>
+                                    <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Eksklusivt sæde - 120 kr.</span></li>
+                                    <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Børn eller pensionister - 90 kr.</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- row  -->
+        <div class="row mt-4">
+            <!-- column  -->
+            <div class="col-md-4">
+                <div class="card card-shadow border-0 mb-4" style="background-color: slategrey !important; color:white;"  >
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center">
+                            <h3 class="font-weight-medium mb-0">Sodavand</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-5 text-center">
+                                <div class="price-box my-3">
+                                    <center>
+                                        <img src="~/lib/Pictures/soda.png" style="width:80px;" />
+                                    </center>
+                                </div>
+                            </div>
+                            <div class="col-lg-7 align-self-center">
+                                <ul class="list-inline pl-3 font-14 font-weight-medium text-white">
+                                    <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Lille sodavand - 20 kr.</span></li>
+                                    <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Mellem sodavand - 30 kr.</span></li>
+                                    <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Stor sodavand - 45 kr.</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-shadow border-0 mb-4" style="background-color: slategrey !important; color:white;">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center">
+                            <h3 class="font-weight-medium mb-0">Slik</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-5 text-center">
+                                <div class="price-box my-3">
+                                    <center>                                     
+                                        <img src="~/lib/Pictures/candy.png" style="width:80px;"/>
+                                    </center>
+                                </div>
+                            </div>
+                            <div class="col-lg-7 align-self-center">
+                                <ul class="list-inline pl-3 font-14 font-weight-medium text-white">
+                                    <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>100 g bland-selv slik - 25 kr.</span></li>
+                                    <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Haribo poser - 28 kr.</span></li>
+                                    <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Schokoladebar - 15 kr.</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-shadow border-0 mb-4" style="background-color: slategrey !important; color:white;">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center">
+                            <h3 class="font-weight-medium mb-0">Popcorn</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-5 text-center">
+                                <div class="price-box my-3">
+                                    <center>
+                                        <img src="~/lib/Pictures/popcorn.png" style="width:80px;" />
+                                    </center>
+                                </div>
+                            </div>
+                            <div class="col-lg-7 align-self-center">
+                                <ul class="list-inline pl-3 font-14 font-weight-medium text-white">
+                                    <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Lille popcorn - 15 kr.</span></li>
+                                    <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Mellem popcorn - 20 kr.</span></li>
+                                    <li class="py-2"><i class="icon-check text-info mr-2"></i> <span>Stor popcorn - 30 kr.</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

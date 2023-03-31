@@ -59,24 +59,6 @@ namespace H3ServersideProject.Controllers
             }
         }
 
-        [Produces("application/json")]
-        [HttpGet]
-        public IActionResult UserOrders()
-        {
-            var checkCookie = Request.Cookies["LoginCookie"];
-            if (checkCookie != null)
-            {
-                
-                return View();
-            }
-            else
-            {
-                // Email doesn't exist
-                _logger.LogError($"User isn't logged in");
-                return View();
-            }
-        }
-
         /// <summary>
         /// A function to logout the user. It deletes the cookie.
         /// </summary>

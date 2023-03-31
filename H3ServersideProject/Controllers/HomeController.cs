@@ -1,4 +1,5 @@
-﻿using H3ServersideProject.Models;
+﻿using H3ServersideProject.Attributes;
+using H3ServersideProject.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -30,6 +31,7 @@ namespace H3ServersideProject.Controllers
             return View();
         }
 
+        [Auth]
         /// <summary>
         /// The view for the receipt.
         /// </summary>

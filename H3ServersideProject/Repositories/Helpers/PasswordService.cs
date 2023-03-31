@@ -58,14 +58,23 @@ namespace H3ServersideProject.Repositories.Helpers
             Array.Copy(passwordSalt, 0, newHash, passwordHash.Length, passwordSalt.Length);
         }
 
+
+        /// <summary>
+        /// The next 3 methods is used to recover a password.
+        /// </summary>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <returns></returns>
         public int RandomNumber(int min, int max)
         {
+            // Generate a number between 1001 and 9999.
             Random random = new Random();
             return random.Next(min, max);
         }
 
         public string RandomString(int size, bool lowerCase)
         {
+            // Creates a random string.
             StringBuilder builder = new StringBuilder();
             Random random = new Random();
             char ch;
@@ -81,6 +90,7 @@ namespace H3ServersideProject.Repositories.Helpers
 
         public string RandomPassword(int size = 0)
         {
+            // Build the new random password with the "RandomString" and "RandomNumber" methods and connects them together.
             StringBuilder builder = new StringBuilder();
             builder.Append(RandomString(4, true));
             builder.Append(RandomNumber(1000, 9999));

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - H3ServersideProject</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/MyProfileStyle.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/H3ServersideProject.styles.css" asp-append-version="true" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
@@ -18,7 +19,6 @@
 <body class="bg-dark">
     <header>
         <Scripts>
-
             <asp:ScriptReference Name="MsAjaxBundle" />
             <asp:ScriptReference Name="jquery" />
             <asp:ScriptReference Name="bootstrap" />
@@ -32,7 +32,7 @@
             <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
             <asp:ScriptReference Name="WebFormsBundle" />
         </Scripts>
-        <nav class="navbar navbar-expand bg-primary navbar-primary sticky-top p-2">
+        <nav class="navbar navbar-expand bg-primary navbar-primary sticky-top p-2 gradient-custom">
             <div class="Text-center">
                 <a class="navbar-brand mx-auto mr-auto" asp-area="" asp-controller="Home" asp-action="Index">
                     <img src="~/lib/Pictures/BB.png" alt="Avatar Logo" style="width: 50px;" />
@@ -57,11 +57,25 @@
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
+            <div id="cookieNotice" class="light display-right" style="display: none;">
+                <div id="closeIcon" style="display: none;">
+                </div>
+                <div class="title-wrap">
+                    <h4>Cookie Consent</h4>
+                </div>
+                <div class="content-wrap">
+                    <div class="msg-wrap">
+                        <p>fjjfeiufiuejiuoejfejifejiejf  <a style="color:#115cfa;" href="/privacy-policy">Privacy Policy</a></p>
+                        <div class="btn-wrap">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
     </div>
 
     <!-- Footer -->
-    <footer class="text-center text-lg-start bg-primary mt-5 text-white">
+    <footer class="text-center text-lg-start bg-primary mt-5 text-white gradient-custom">
         <section class="d-flex justify-content-center justify-content-lg-between">
         </section>
         <!-- Section: Links  -->
@@ -73,26 +87,25 @@
                     <div class="col-md-3 col-lg-4 col-xl-3 mx-auto">
                         <!-- Content -->
                         <h3 class="text-uppercase fw-bold">Best Bio</h3>
-                        <img src="/lib/Pictures/BB.png" alt="Avatar Logo" style="width: 75px;" />    
+                        <img src="/lib/Pictures/BB.png" alt="Avatar Logo" style="width: 75px;" />
                     </div>
                     <!-- Grid column -->
-                    
                     <!-- Grid column -->
                     <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
                         <div class="container">
                             <div class="row">
                                 <p><a href="#!" class="text-reset">Priser</a></p>
                                 <p><a href="#!" class="text-reset">Program</a></p>
-                                <p><a href="#!" class="text-reset">Min Side</a></p>       
+                                <p><a href="#!" class="text-reset">Min Side</a></p>
                             </div>
-                        </div>                                          
+                        </div>
                     </div>
                     <!-- Grid column -->
                     <!-- Grid column -->
                     <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
                         <!-- Links -->
                         <h5 class="text-uppercase fw-bold mb-4">Kontakt</h5>
-                        <p class="fas fa-home me-3">Nykøbing Falster, Danmark</p> 
+                        <p class="fas fa-home me-3">Nykøbing Falster, Danmark</p>
                         <p class="fas fa-envelope me-3">Kontakt@BestBio.dk</p>
                         <p class="fas fa-phone me-3">+45 94 28 49 28</p>
                     </div>

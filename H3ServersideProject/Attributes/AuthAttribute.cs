@@ -8,6 +8,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System;
+using Microsoft.AspNetCore.Http.Extensions;
 
 namespace H3ServersideProject.Attributes
 {
@@ -61,8 +62,8 @@ namespace H3ServersideProject.Attributes
                 return;
             }
             else
-            {                
-                context.Result = new UnauthorizedResult();
+            {
+                context.Result = new LocalRedirectResult("~/Login");
                 return;
             }
         }
