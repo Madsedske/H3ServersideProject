@@ -19,7 +19,7 @@
                             <hr>
                             <form id="registration-form">
                                 <div class="form-group">
-                                    <label class="form-label"><b>Navn</b></label>
+                                    <label class="form-label"><b>Fulde Navn</b></label>
                                     <input id="name" class="form-control form-control-lg" placeholder="Navn" type="text" name="name"><br>
                                     <div class="alert-primary alerts" role="alert">
                                         <p class="alert-text" id="Name"></p>
@@ -110,11 +110,8 @@
 
                         console.log(obj[0], obj[1], message, element)
 
-                        $(document).ready(function () {
-                            $('#registerButton').click(function () {
-                                $('.alert-primary').show();
-                            })
-                        });
+                        $('.alert-primary').show();
+
                         element.innerHTML = message + "<br>";
                     })
 

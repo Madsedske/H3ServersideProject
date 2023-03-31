@@ -71,6 +71,7 @@ namespace H3ServersideProject.Controllers
             if (checkCookie != null)
             {
                 Response.Cookies.Delete("LoginCookie");
+                Response.Cookies.Delete("AuthCookie");
             }
             return RedirectToAction("Index", "Login");
         }
